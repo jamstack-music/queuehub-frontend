@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
 
 const Home = () => {
   const [room, setRoom] = useState('')
-  const enterRoom = async e => {
-    e.preventDefault()
-    //Send request and join room
-  }
+  const [submit, setSubmit] = useState(false)
+  
+  if(submit)
+    return <Redirect to={`/${room}`} /> 
 
   return (
     <div>
       <h1>Queuehub</h1>
-      <form onSubmit={e => enterRoom(e)}>
-        <label>Enter in room name</label>
-        <input type="text" onChange={e => setRoom(e.target.value)}/>
-        <button type="submit">Let's go!</button>
+      <form onSubmit={() => setSubmit(true)}>
+        <label htmlFor='room-name'>Enter in room name</label>
+        <input type='text' id='room-name' onChange={e => setRoom(e.target.value)}/>
+        <button type='submit'>Let's go!</button>
       </form>
     </div>
   )
