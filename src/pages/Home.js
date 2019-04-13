@@ -6,7 +6,7 @@ const Home = () => {
   const [submit, setSubmit] = useState(false)
   
   if(submit)
-    return <Redirect to={`/${room}`} /> 
+    return <Redirect push to={`/${room}`} /> 
 
   return (
     <div>

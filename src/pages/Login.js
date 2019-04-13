@@ -13,21 +13,22 @@ const retrieveHash = () => window.location.hash
   return initial;
 }, {});
 
-const Login = () => {
-  const authenticate = async () => {
-    window.location.href = authURL
-  }
+const authenticate = async () => {
+  window.location.href = authURL
+}
 
+const Login = () => {
   const { access_token } = retrieveHash()
 
-  if(access_token) setToken(access_token)
+  if(access_token) {
+    setToken(access_token)
+    return <Redirect to='/' />
+  }
   
-  if(spotify.getAccessToken()) return <Redirect to='/' /> 
-    
   return (
     <>
       <div>Testing</div>
-      <button onClick={() => authenticate()}>HEll0</button>
+      <button onClick={authenticate}>HEll0</button>
     </>
   )
 }
