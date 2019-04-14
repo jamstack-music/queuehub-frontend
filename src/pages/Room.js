@@ -1,14 +1,19 @@
 import React, { useRef, useEffect } from 'react'
-import { Link, Route, Switch } from 'react-router-dom'
+import { NavLink, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
+import styled from 'styled-components'
 
-import { Subscribe } from 'unstated'
-import { RoomContainer } from '../store/room'
+import Nav from '../components/Nav'
 
 import CurrentPlaying from './CurrentPlaying'
 import Members from './Members'
 import Search from './Search'
 import NotFound from './NotFound'
+
+
+const View = styled.div`
+  padding-bottom: 40px;
+`
 
 const Room = ({ match }) => { 
   let eventSource = useRef(null) 
@@ -25,28 +30,25 @@ const Room = ({ match }) => {
     })
 
     return function unMount() {
-      console.log(eventSource)
       eventSource.removeAllListeners()
       eventSource.close()
     }
   },[])
 
   return (
-    <Subscribe to={[RoomContainer]}>
-      {room =>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <Link to={`${match.url}`}>Current Playing </Link>
-          <Link to={`${match.url}/members`}>Members</Link>
-          <Link to={`${match.url}/search`}>Search</Link>
-          <Switch>
-            <Route exact path={`${match.url}`} component={CurrentPlaying} />
-            <Route path={`${match.url}/members`} component={Members} />
-            <Route path={`${match.url}/search`} component={Search} />
-            <Route component={NotFound} /> 
-          </Switch>
-        </div>
-      }
-    </Subscribe>
+    <View>
+      <Nav>
+        <NavLink exact to={`${match.url}`}>Current Playing </NavLink>
+        <NavLink to={`${match.url}/members`}>Members</NavLink>
+        <NavLink to={`${match.url}/search`}>Search</NavLink>
+      </Nav>
+      <Switch>
+        <Route exact path={`${match.url}`} component={CurrentPlaying} />
+        <Route path={`${match.url}/members`} component={Members} />
+        <Route path={`${match.url}/search`} component={Search} />
+        <Route component={NotFound} /> 
+      </Switch>
+    </View>
   )
 }
 
