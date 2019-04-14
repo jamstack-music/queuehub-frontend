@@ -1,5 +1,11 @@
 import React, { useRef, useEffect } from 'react'
 import { NavLink, Route, Switch } from 'react-router-dom'
+import { 
+  IoIosSearch as SearchIcon,
+  IoIosMusicalNotes as CurrentPlayingIcon,
+  IoMdPeople as MembersIcon
+} from 'react-icons/io'
+
 import axios from 'axios'
 import styled from 'styled-components'
 
@@ -38,9 +44,9 @@ const Room = ({ match }) => {
   return (
     <View>
       <Nav>
-        <NavLink exact to={`${match.url}`}>Current Playing </NavLink>
-        <NavLink to={`${match.url}/members`}>Members</NavLink>
-        <NavLink to={`${match.url}/search`}>Search</NavLink>
+        <NavLink exact to={`${match.url}`}><CurrentPlayingIcon size='1.5em'/></NavLink>
+        <NavLink to={`${match.url}/members`}><MembersIcon size='1.5em'/></NavLink>
+        <NavLink to={`${match.url}/search`}><SearchIcon size='1.5em'/></NavLink>
       </Nav>
       <Switch>
         <Route exact path={`${match.url}`} component={CurrentPlaying} />
