@@ -1,13 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const Detail = styled.td`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  height: 4em;
-  padding-left: 0.5em;
-  padding-right: 1em;
-`
+import Detail from './Detail'
 
 const Song = (props) => {
   const {
@@ -15,15 +7,15 @@ const Song = (props) => {
     artist,
     images: [,,{
       url: albumUrl
-    }]
+    }],
   } = props
   
   return (
-    <tr>
-			<Detail><img alt={albumUrl} src={albumUrl} style={{width: 50, height: 50}}/></Detail>
+    <>
+      <Detail><img alt={albumUrl} src={albumUrl} style={{width: 30, height: 30}}/></Detail>
       <Detail>{title}</Detail>
       <Detail>{artist}</Detail>
-    </tr>
+    </>
   )
 }
 

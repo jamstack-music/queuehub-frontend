@@ -3,13 +3,14 @@ import Song from './Song'
 
 const SongList = (props) => {
   const {
-    songs
+    children,
+    style,
   } = props
 
   return (
-    <table style={{ width: '100vw', borderCollapse: 'collapse'}}> 
+    <table style={{ width: '100vw', borderCollapse: 'collapse', ...style}}> 
       <tbody>
-        { songs.map(({id, ...song}) => <Song key={id} {...song} />) }
+        { children } 
       </tbody>
     </table>
   )
