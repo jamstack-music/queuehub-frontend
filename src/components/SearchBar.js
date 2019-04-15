@@ -24,7 +24,7 @@ const SearchBar = (props) => {
   return (
     <Bar>
       <SearchIcon style={{ margin: '0 0 0 0.5em', flex: 1 }}/>
-      <Input type='text' onChange={onChange} />
+      <Input type='text' placeholder='Search...' onChange={onChange} />
     </Bar>    
   )
 }
