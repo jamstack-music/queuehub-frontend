@@ -5,7 +5,6 @@ const StoreMiddleWare = (props) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(function init() {
-    console.dir(props)
     async function initStore(room, id) {
       const { data } = await joinRoom(id, 'Zach')
       room.initRoom(data)
