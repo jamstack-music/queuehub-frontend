@@ -90,7 +90,7 @@ export class RoomContainer extends Container {
   initStore = store => this.setState(store)
 
   addToQueue = song => this.setState(prevState => ({
-    queue: prevState.queue.insert(0, song)
+    queue: [...prevState.queue, song]
   }))
 
   nextSong = () => {

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { spotify } from '../data/spotify'
-import SongList from '../components/SongList'
+import SearchList from '../components/SearchList'
+import SearchBar from '../components/SearchBar'
+import { Subscribe } from 'unstated'
+import { RoomContainer } from '../store/room'
 
 const Search = () => {
   const [query, setQuery] = useState('')
@@ -31,14 +34,25 @@ const Search = () => {
       }))
 
       setResults(searchResults)    
-    }).catch(err => console.log(err))
+    }).catch( ({ status }) => {
+      if(status === 400) setResults([])
+    })
   }, [query])
   
   return (
-    <div>
-      <input type='text' onChange={e => setQuery(e.target.value)}/>
-      <SongList songs={results} />  
-    </div>
+    <Subscribe to={[RoomContainer]}>
+      {
+        room => (
+          <div>
+            <SearchBar onChange={e => setQuery(e.target.value)}/>
+            <SearchList
+              onAdd={song => room.addToQueue(song)}
+              style={{ marginTop: '3em' }}
+              songs={results} />  
+          </div>
+        )
+      }
+    </Subscribe>
   )
 }
 
