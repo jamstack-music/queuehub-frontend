@@ -9,12 +9,12 @@ const CurrentPlaying = () => (
   <Subscribe to={[RoomContainer]}>
     {
       room => (
-        <>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <h2>Current Song</h2>
-          <CurrentSong {...room.state.currentSong}/>
+          { Object.keys(room.state.currentSong).length !== 0 ? <CurrentSong {...room.state.currentSong}/> : <h3>No Song</h3>}
           <h3>Current Queue</h3>
           <SongList songs={room.state.queue} />
-        </>
+        </div>
       ) 
     }
   </Subscribe>
