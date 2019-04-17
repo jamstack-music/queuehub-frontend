@@ -1,10 +1,5 @@
 import React from 'react'
 import Song from './Song'
-import styled from 'styled-components'
-
-const Ul = styled.div`
-
-`
 
 const SongList = (props) => {
   const {
