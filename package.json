@@ -7,11 +7,13 @@
     "js-cookie": "^2.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-icons": "^3.5.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "spotify-web-api-js": "^1.2.0",
     "styled-components": "^4.2.0",
-    "unstated": "^2.1.1"
+    "unstated": "^2.1.1",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
