@@ -1,17 +1,19 @@
 import React from 'react'
+import Song from './Song'
 
 const SongList = (props) => {
   const {
     children,
+    songs,
     style,
   } = props
 
   return (
-    <table style={{ width: '100vw', borderCollapse: 'collapse', ...style}}> 
-      <tbody>
-        { children } 
-      </tbody>
-    </table>
+    <div style={{ width: '100vw', ...style}}> 
+      { children ? children : (
+        songs.map((song, i) => <Song key={song.id+i} {...song} /> )
+      ) } 
+    </div>
   )
 }
 

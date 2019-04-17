@@ -3,7 +3,7 @@ import { RoomContainer } from '../store/room'
 import { Subscribe } from 'unstated'
 
 import CurrentSong from '../containers/CurrentSong'
-import QueueList from '../components/QueueList'
+import SongList from '../components/SongList'
 
 const CurrentPlaying = () => (
   <Subscribe to={[RoomContainer]}>
@@ -13,7 +13,7 @@ const CurrentPlaying = () => (
           <h2>Current Song</h2>
           <CurrentSong {...room.state.currentSong}/>
           <h3>Current Queue</h3>
-          <QueueList songs={room.state.queue} />
+          <SongList songs={room.state.queue} />
         </>
       ) 
     }
