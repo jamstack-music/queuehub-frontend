@@ -15,6 +15,7 @@ import CurrentPlaying from './CurrentPlaying'
 import Members from './Members'
 import Search from './Search'
 import NotFound from './NotFound'
+import Playlist from './Playlist'
 
 
 const View = styled.div`
