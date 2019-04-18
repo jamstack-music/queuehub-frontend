@@ -2,8 +2,8 @@ import React from 'react'
 import { RoomContainer } from '../store/room'
 import { Subscribe } from 'unstated'
 
-import CurrentSong from '../containers/CurrentSong'
-import SongList from '../components/SongList'
+import CurrentSong from '../components/Songs/CurrentSong'
+import SongList from '../components/Songs/SongList'
 
 const CurrentPlaying = () => (
   <Subscribe to={[RoomContainer]}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { spotify } from '../data/spotify'
 
-import PlaylistLinks from '../components/PlaylistLinks'
+import PlaylistLinks from '../components/Playlists/PlaylistLinks'
 
 const Playlists = (props) => {
   const {
@@ -14,7 +14,7 @@ const Playlists = (props) => {
   }, [])
   
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ columnCount: 2 }}>
       <PlaylistLinks 
         playlists={playlists}
         baseUrl={match.url}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { spotify } from '../data/spotify'
-
+import AddList from '../components/Songs/AddList'
+import SearchBar from '../components/SearchBar'
+import extractSong from '../data/extractors/song'
 import { Subscribe } from 'unstated'
 import { RoomContainer } from '../store/room'
-import { addSong } from '../data/api'
-import SearchList from '../components/SearchList'
-import SearchBar from '../components/SearchBar'
+import { addSong as addSongRemote } from '../data/api'
+import Alert from '../components/Alert'
 
 const renderAlert = (alert) => {
   if(alert === 'success') {
@@ -34,27 +35,7 @@ const Search = () => {
     spotify.searchTracks(query).then(results => {
       const { tracks: { items } } = results
 
-      const searchResults = items.map(({ 
-        name: title,
-        id,
-        duration,
-        uri,
-        artists: [{
-          name: artist 
-        },],
-        album: {
-          name: album,
-          images
-        },  
-      }) => ({
-        title,
-        id,
-        duration,
-        uri,
-        artist,
-        album,
-        images,
-      }))
+      const searchResults = items.map(song => extractSong(song))
 
       setResults(searchResults)    
     }).catch( ({ status }) => {
@@ -69,8 +50,8 @@ const Search = () => {
           <div>
             { renderAlert(alert) }
             <SearchBar onChange={e => setQuery(e.target.value)}/>
-            <SearchList
-              onAdd={song => addSong(room, song)}
+            <AddList
+              onAdd={song => addSong(room.state.name, song)}
               style={{ marginTop: '3em' }}
               songs={results} />  
           </div>
