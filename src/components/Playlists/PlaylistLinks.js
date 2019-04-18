@@ -14,7 +14,7 @@ const PlaylistLinks = (props) => {
     <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around', flexDirection: 'row', flexWrap: 'wrap', ...style }}>
       {
         playlists.map(pl => (
-          <Link key={pl.id} to={`${baseUrl}/${pl.id}`} style={{ textDecoration: 'none' }}>
+          <Link key={pl.id} to={`${baseUrl}/${pl.id}`} style={{ color: 'black', textDecoration: 'none' }}>
             <PlaylistLink {...pl} />
           </Link>
         ))

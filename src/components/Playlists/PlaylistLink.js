@@ -1,5 +1,4 @@
 import React from 'react'
-import Row from './Row'
 
 const PlaylistLink = (props) => {
   const {
@@ -9,9 +8,9 @@ const PlaylistLink = (props) => {
   
   const thumbnail = images[0].url
   return (
-    <div>
+    <div style={{ display: 'flex', wordWrap: 'break-word', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0.5em'}}>
       <img src={thumbnail} alt={thumbnail} style={{ width: 130, height: 130 }} /> 
-      <div>{name}</div>
+      <div style={{ marginTop: '0.5em' }}>{name}</div>
     </div>
   )
 }
