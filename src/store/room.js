@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Container, Provider } from 'unstated'
 
 export class RoomContainer extends Container {
@@ -40,25 +40,6 @@ export class RoomContainer extends Container {
 export const RoomProvider = ({children}) => {
   const room = new RoomContainer()
  
-  useEffect(function init() {
-    
-    let eventSource = new EventSource('http://34.219.153.198:5000/stream')
-
-    eventSource.addEventListener('greeting', function() {
-      console.log('hello')
-    })
-
-    eventSource.addEventListener('song', function({data}) {
-      const { song } = JSON.parse(data)
-      room.addToQueue(song)
-    })
-
-    eventSource.addEventListener('next', function() {
-      console.log('next message received')
-      room.nextSong()
-    })
-  }, [])
-  
   return (
     <Provider inject={[room]}>
       {children}

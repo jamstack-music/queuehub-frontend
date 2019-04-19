@@ -7,7 +7,6 @@ const CurrentSong = (props) => {
     images: [{url: album},,]
   } = props
   
-
   return (
     <div>
       <img src={album} alt={album} style={{ width: 200, height: 200 }}/>  
@@ -17,4 +16,9 @@ const CurrentSong = (props) => {
   )
 }
 
+CurrentSong.defaultProps = {
+  title: '--',
+  artist: '--',
+  images: [{url: 'https://placeholder.com/200'}] 
+}
 export default CurrentSong
