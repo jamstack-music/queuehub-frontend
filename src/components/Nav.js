@@ -19,6 +19,10 @@ const Navbar = styled.nav`
     text-decoration: none;
   }
 
+  & .link:active {
+    transform: scale(0.9);
+  }
+
   & .selected {
     color: white;
   }
