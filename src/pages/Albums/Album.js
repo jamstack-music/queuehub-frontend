@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { spotify } from '../data/spotify'
-import { addSong } from '../data/api'
+import { spotify } from '../../data/spotify'
+import { addSong } from '../../data/api'
 import { Subscribe } from 'unstated'
-import { RoomContainer } from '../store/room'
+import { RoomContainer } from '../../store/room'
 
-import extractPlaylist from '../data/extractors/playlist'
-import AddList from '../components/Songs/AddList'
+import extractAlbum from '../../data/extractors/album'
+import AddList from '../../components/Songs/AddList'
 
-const Playlist = (props) => {
+const Album = (props) => {
   const {
     match
   } = props 
   
-  const [playlist, setPlaylist] = useState({})
+  const [album, setAlbum] = useState({})
   const [loading, setLoading] = useState(true)
   useEffect(function retreive(){
-    spotify.getPlaylist(match.params.id).then(res => {
-      const playlist = extractPlaylist(res)
-      setPlaylist(playlist)
+    spotify.getAlbum(match.params.id).then(res => {
+      const album = extractAlbum(res)
+      setAlbum(album)
 
       setLoading(false)
     })
@@ -27,17 +27,18 @@ const Playlist = (props) => {
   if(loading) {
     return <div>Loading...</div>
   } else {
-    const playlistImg = playlist.images[0].url
+    const playlistImg = album.images[0].url
     return (
       <Subscribe to={[RoomContainer]}>
         {
           room => (
             <div style={{ width: '100%' }}>
               <img src={playlistImg} alt={playlistImg} style={{ width: 250, height: 250 }}/>
-              <div>{playlist.name}</div>
+              <div>{album.name}</div>
+              <div>{album.artist}</div>
               <AddList 
                 style={{ width: '100%' }}
-                songs={playlist.songs}
+                songs={album.songs}
                 onAdd={song => addSong(room.state.name, song)}
               />
             </div>
@@ -48,4 +49,4 @@ const Playlist = (props) => {
   } 
 }
 
-export default Playlist
+export default Album 
