@@ -26,7 +26,7 @@ const Search = () => {
     if(room.state.queue.find(({ id }) => id === song.id)) {
       setAlert('failure')
     } else{
-      addSongRemote(room.state.id, song).then(res => {
+      addSongRemote(room.state.name, song).then(res => {
         setAlert('success')
       })
     }
