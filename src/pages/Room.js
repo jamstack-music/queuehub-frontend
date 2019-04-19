@@ -19,10 +19,11 @@ import CurrentPlaying from './CurrentPlaying'
 import Members from './Members'
 import Search from './Search'
 import NotFound from './NotFound'
-import Playlists from './Playlists'
-import Playlist from './Playlist'
-import Album from './Album'
-import Albums from './Albums'
+import Browse from './Browse'
+import Playlist from './Playlists/Playlist'
+import Playlists from './Playlists/Playlists'
+import Album from './Albums/Album'
+import Albums from './Albums/Albums'
 
 const View = styled.div`
   padding-bottom: 40px;
@@ -37,7 +38,7 @@ const Room = ({ match }) => {
             <View>
               <Nav>
                 <NavLink exact to={`${match.url}`}><CurrentPlayingIcon size='1.5em'/></NavLink>
-                <NavLink to={`${match.url}/browse/playlists`}><BookMarkIcon size='1.5em'/></NavLink>
+                <NavLink to={`${match.url}/browse`}><BookMarkIcon size='1.5em'/></NavLink>
                 <NavLink to={`${match.url}/members`}><MembersIcon size='1.5em'/></NavLink>
                 <NavLink to={`${match.url}/search`}><SearchIcon size='1.5em'/></NavLink>
               </Nav>
@@ -45,6 +46,7 @@ const Room = ({ match }) => {
                 <Route exact path={`${match.url}`} component={CurrentPlaying} />
                 <Route path={`${match.url}/members`} component={Members} />
                 <Route path={`${match.url}/search`} component={Search} />
+                <Route exact path={`${match.url}/browse`} component={Browse} />
                 <Route exact path={`${match.url}/browse/playlists`} component={Playlists} />
                 <Route path={`${match.url}/browse/playlists/:id`} component={Playlist} />
                 <Route exact path={`${match.url}/browse/albums`} component={Albums} />
