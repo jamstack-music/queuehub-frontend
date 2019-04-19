@@ -1,4 +1,5 @@
 import * as Spotify from 'spotify-web-api-js'
+import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const _spotify = new Spotify()
@@ -15,6 +16,14 @@ const credentials = {
   scopes: ['streaming', 'user-library-read']
   
 }
+
+export const getNext = (next) =>{
+  return axios.get(next, {
+    headers: {
+      "Authorization": `Bearer ${_spotify.getAccessToken()}`
+    }
+  }).then(res => Promise.resolve(res.data)).catch(err => Promise.reject(err))
+} 
 
 export const spotify = _spotify 
 export const setToken = token => {

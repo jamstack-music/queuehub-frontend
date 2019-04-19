@@ -3,7 +3,7 @@ import SongList from './SongList'
 import { FiPlus } from 'react-icons/fi'
 import Song from './Song'
 
-const SearchList = (props) => {
+const AddList = (props) => {
   const {
     songs,
     style,
@@ -23,4 +23,4 @@ const SearchList = (props) => {
   )
 }
 
-export default SearchList
+export default AddList 
