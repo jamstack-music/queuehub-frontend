@@ -3,11 +3,8 @@ import { spotify } from '../data/spotify'
 
 import { Subscribe } from 'unstated'
 import { RoomContainer } from '../store/room'
-import { addSong } from '../data/api'
 import SearchList from '../components/SearchList'
 import SearchBar from '../components/SearchBar'
-import { Subscribe } from 'unstated'
-import { RoomContainer } from '../store/room'
 import { addSong as addSongRemote } from '../data/api'
 import Alert from '../components/Alert'
 
