@@ -51,7 +51,7 @@ const Search = () => {
             { renderAlert(alert) }
             <SearchBar onChange={e => setQuery(e.target.value)}/>
             <AddList
-              onAdd={song => addSong(room.state.name, song)}
+              onAdd={song => addSong(room, song)}
               style={{ marginTop: '3em' }}
               songs={results} />  
           </div>
