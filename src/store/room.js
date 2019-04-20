@@ -32,19 +32,19 @@ export class RoomContainer extends Container {
   }
 
   bumpSong = (id) => {
-    const newQueue = this.state.queue.map(song => {
-      if(song.id === id) {
-        return {
-          ...song, 
-          bumps: song.bumps+1
-        }
-      }
+    const index = this.state.queue.findIndex(song => song.id === id)
+    const queue = this.state.queue 
+    queue[index] = {
+      ...queue[index], 
+      bumps: queue[index].bumps + 1,
+      alreadyBumped: true
+    }
 
-      return song
-    })
-    
-    this.setState(prevState => ({ 
-      queue: newQueue
+    if(index !== 0)
+      [queue[index], queue[index - 1]] = [queue[index - 1], queue[index]]
+
+    this.setState(prevState => ({
+      queue
     }))
   }
 
