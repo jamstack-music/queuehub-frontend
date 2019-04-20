@@ -15,6 +15,7 @@ export class RoomContainer extends Container {
   }
 
   setName = name => this.setState({name })
+
   addToQueue = song => {
     this.setState(prevState => ({
       queue: [...prevState.queue, song]
@@ -28,6 +29,23 @@ export class RoomContainer extends Container {
         queue: prevState.queue.slice(1, prevState.queue.length)
       }))
     }
+  }
+
+  bumpSong = (id) => {
+    const newQueue = this.state.queue.map(song => {
+      if(song.id === id) {
+        return {
+          ...song, 
+          bumps: song.bumps+1
+        }
+      }
+
+      return song
+    })
+    
+    this.setState(prevState => ({ 
+      queue: newQueue
+    }))
   }
 
   addMember = member => {
