@@ -15,7 +15,12 @@ const BumpList = (props) => {
       {
         songs.map(song => (
           <Song key={uuidv4()} {...song}>
-            <button onClick={() => onBump(song)}>{song.bumps || 0}</button> 
+            <button
+              disabled={song.alreadyBumped}
+              onClick={() => onBump(song)}
+            >
+              {song.bumps || 0}
+            </button> 
           </Song>
         ))
       }
