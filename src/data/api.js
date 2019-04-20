@@ -12,6 +12,6 @@ export const joinRoom = async (room, name) => {
 }
 
 export const addSong = async (room, song) => {
-  const res = await axios.post(`${BASE}/add/${room}`, song) 
+  const res = await axios.post(`${BASE}/add/${room}`, {...song, bumps: 0}) 
   return res
 }
