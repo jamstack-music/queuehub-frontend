@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { joinRoom } from '../data/api'
+import { Redirect } from 'react-router-dom'
 
 const StoreMiddleWare = (props) => {
   const [loading, setLoading] = useState(true)
-
+  const [error, setError] = useState(false)
+  
   useEffect(function init() {
     async function initStore(room, id) {
-      const { data } = await joinRoom(id, 'Zach')
-      room.initRoom(data)
-      setLoading(false)
+      let name = sessionStorage.getItem('name')
+      if(!name) {
+        setError(true)
+      } else {
+        const { data, status } = await joinRoom(id, name) 
+        if (status === 400)
+          setError(true)
+        room.initRoom(data)
+        setLoading(false)
+      }
     }
 
     const eventSource = new EventSource(`http://54.191.51.110:5000/stream?channel=${props.roomID}`)
@@ -28,12 +37,12 @@ const StoreMiddleWare = (props) => {
 
     initStore(props.room, props.roomID)
     return function unMount() {
-      eventSource.removeEventListener('song')
-      eventSource.removeEventListener('next')
       eventSource.close()
     }
   }, [])
 
+  if(error) return <Redirect to='/' />
+    
   return (
     <>
     {

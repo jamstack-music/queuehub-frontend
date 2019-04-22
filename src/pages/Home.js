@@ -6,8 +6,10 @@ const Home = () => {
   const [name, setName] = useState('')
   const [submit, setSubmit] = useState(false)
   
-  if(submit)
+  if(submit) {
+    sessionStorage.setItem('name', name)
     return <Redirect push to={`/${room}`} /> 
+  }
 
   return (
     <div>
