@@ -6,28 +6,19 @@ import extractSong from '../data/extractors/song'
 import { Subscribe } from 'unstated'
 import { RoomContainer } from '../store/room'
 import { addSong as addSongRemote } from '../data/api'
-import Alert from '../components/Alert'
-
-const renderAlert = (alert) => {
-  if(alert === 'success') {
-    return <Alert type='success' message='Song Added!' />
-  } else if(alert === 'failure') {
-    console.log('triggered')
-    return <Alert type='failure' message='Looks like the song is already in the queue' />
-  }
-}
+import { useAlert } from 'react-alert'
 
 const Search = () => {
+  const alert = useAlert()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
-  const [alert, setAlert] = useState(null)
   
   const addSong = (room, song) => {
     if(room.state.queue.find(({ id }) => id === song.id)) {
-      setAlert('failure')
+      alert.error('This song is already in the queue!')
     } else{
       addSongRemote(room.state.name, song).then(res => {
-        setAlert('success')
+        alert.success('Song added to queue!')
       })
     }
   }
@@ -48,7 +39,6 @@ const Search = () => {
       {
         room => (
           <div>
-            { renderAlert(alert) }
             <SearchBar onChange={e => setQuery(e.target.value)}/>
             <AddList
               onAdd={song => addSong(room, song)}

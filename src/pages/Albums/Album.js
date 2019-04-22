@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { spotify } from '../../data/spotify'
-import { addSong } from '../../data/api'
+import { addSong as addSongRemote } from '../../data/api'
 import { Subscribe } from 'unstated'
 import { RoomContainer } from '../../store/room'
 import AlbumCover from '../../components/Album'
-
+import { useAlert } from 'react-alert'
 import extractAlbum from '../../data/extractors/album'
 import AddList from '../../components/Songs/AddList'
 
@@ -24,6 +24,17 @@ const Album = (props) => {
     })
   }, [])
   
+  const alert = useAlert()
+  const addSong = (room, song) => {
+    if(room.state.queue.find(({ id }) => id === song.id)) {
+      alert.error('This song is already in the queue!')
+    } else{
+      addSongRemote(room.state.name, song).then(res => {
+        alert.success('Song added to queue!')
+      })
+    }
+  }
+
 
   if(loading) {
     return <div>Loading...</div>
@@ -37,7 +48,7 @@ const Album = (props) => {
               <AddList 
                 style={{ width: '100%' }}
                 songs={album.songs}
-                onAdd={song => addSong(room.state.name, song)}
+                onAdd={song => addSong(room, song)}
               />
             </div>
           )
