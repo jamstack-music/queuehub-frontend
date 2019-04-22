@@ -1,16 +1,9 @@
 import React from 'react'
+import styled from 'styled-components'
 
-const Grid = (props) => {
-  const { 
-    children,
-    style,
-  } = props
-
-  return (
-    <div style={{ width: '100%', columnCount: 2, display: 'flex', justifyContent: 'space-around', flexDirection: 'row', flexWrap: 'wrap', ...style }}>
-      { children }
-    </div>
-  )
-}
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`
 
 export default Grid

@@ -2,6 +2,7 @@ import React from 'react'
 
 const Album = (props) => {
   const {
+    dim = 130,
     name,
     artist,
     images,
@@ -9,9 +10,9 @@ const Album = (props) => {
   
   const thumbnail = images[0].url
   return (
-    <div style={{ display: 'flex', wordWrap: 'break-word', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0.5em'}}>
-      <img src={thumbnail} alt={thumbnail} style={{ width: 130, height: 130 }} /> 
-      <div style={{ marginTop: '0.5em' }}>{name}</div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0.5em'}}>
+      <img src={thumbnail} alt={thumbnail} style={{ width: dim, height: dim }} /> 
+      <div style={{ marginTop: '0.5em', fontWeight: 'bold', textAlign: 'center' }}>{name}</div>
       <div>{artist}</div>
     </div>
   )

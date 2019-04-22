@@ -3,6 +3,7 @@ import { spotify } from '../../data/spotify'
 import { addSong } from '../../data/api'
 import { Subscribe } from 'unstated'
 import { RoomContainer } from '../../store/room'
+import AlbumCover from '../../components/Album'
 
 import extractAlbum from '../../data/extractors/album'
 import AddList from '../../components/Songs/AddList'
@@ -27,15 +28,12 @@ const Album = (props) => {
   if(loading) {
     return <div>Loading...</div>
   } else {
-    const playlistImg = album.images[0].url
     return (
       <Subscribe to={[RoomContainer]}>
         {
           room => (
             <div style={{ width: '100%' }}>
-              <img src={playlistImg} alt={playlistImg} style={{ width: 250, height: 250 }}/>
-              <div>{album.name}</div>
-              <div>{album.artist}</div>
+              <AlbumCover dim={250} {...album} />
               <AddList 
                 style={{ width: '100%' }}
                 songs={album.songs}

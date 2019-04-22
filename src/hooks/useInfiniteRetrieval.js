@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getNext } from '../data/spotify'
-
+import extractAlbum from '../data/extractors/album'
 
 export default function useInfiniteRetrieval(initial) {
   const [next, setNext] = useState(initial)
@@ -28,7 +28,7 @@ export default function useInfiniteRetrieval(initial) {
       getNext(next).then(res => {
         const { items, next } = res
         const newList = items.map(item => {
-          if(item.album) return item.album
+          if(item.album) return extractAlbum(item.album)
           return item
         })
         

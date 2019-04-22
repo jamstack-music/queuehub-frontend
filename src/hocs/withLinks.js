@@ -10,7 +10,7 @@ const withLinks = (Component) => (
     } = props
 
     return (
-      <Link to={`${baseUrl}/${id}`} style={{ textDecoration: 'none' }}>
+      <Link to={`${baseUrl}/${id}`} style={{ color: 'black', textDecoration: 'none' }}>
         <Component {...props} />
       </Link>
     )

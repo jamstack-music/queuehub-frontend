@@ -20,10 +20,6 @@ import Members from './Members'
 import Search from './Search'
 import NotFound from './NotFound'
 import Browse from './Browse'
-import Playlist from './Playlists/Playlist'
-import Playlists from './Playlists/Playlists'
-import Album from './Albums/Album'
-import Albums from './Albums/Albums'
 
 const View = styled.div`
   padding-bottom: 40px;
@@ -46,11 +42,7 @@ const Room = ({ match }) => {
                 <Route exact path={`${match.url}`} component={CurrentPlaying} />
                 <Route path={`${match.url}/members`} component={Members} />
                 <Route path={`${match.url}/search`} component={Search} />
-                <Route exact path={`${match.url}/browse`} component={Browse} />
-                <Route exact path={`${match.url}/browse/playlists`} component={Playlists} />
-                <Route path={`${match.url}/browse/playlists/:id`} component={Playlist} />
-                <Route exact path={`${match.url}/browse/albums`} component={Albums} />
-                <Route path={`${match.url}/browse/albums/:id`} component={Album} />
+                <Route path={`${match.url}/browse`} component={Browse} />
                 <Route component={NotFound} /> 
               </Switch>
             </View>
