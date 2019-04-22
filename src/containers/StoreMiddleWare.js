@@ -18,6 +18,10 @@ const StoreMiddleWare = (props) => {
       props.room.addToQueue(song)
     }, false)
 
+    eventSource.addEventListener('bump', function({data}) {
+      props.room.bumpSong(data)
+    })
+
     eventSource.addEventListener('next', function() {
       props.room.nextSong()
     }, false)
