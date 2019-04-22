@@ -11,7 +11,14 @@ export class RoomContainer extends Container {
 
   initRoom = store => {
     const { current_song, ...rest } = store
-    this.setState(prevState => ({...prevState, ...rest, currentSong: current_song}))
+    const jsonMap = sessionStorage.getItem('alreadyBumped') || "{}"
+    const alreadyBumped = JSON.parse(jsonMap)
+    const queue = store.queue.map(song => ({
+      ...song, 
+      alreadyBumped: alreadyBumped[song.id] || false
+    }))
+
+    this.setState(prevState => ({...prevState, ...rest, queue, currentSong: current_song}))
   }
 
   setName = name => this.setState({name })
@@ -24,6 +31,11 @@ export class RoomContainer extends Container {
 
   nextSong = () => {
     if(this.state.queue.length > 0) {
+      const jsonMap = sessionStorage.getItem('alreadyBumped') || "{}"
+      const alreadyBumped = JSON.parse(jsonMap)
+      alreadyBumped.delete(this.state.queue[0].id)
+      sessionStorage.setItem('alreadyBumped', JSON.stringify(alreadyBumped))
+
       this.setState(prevState => ({
         currentSong: prevState.queue[0], 
         queue: prevState.queue.slice(1, prevState.queue.length)
@@ -34,10 +46,13 @@ export class RoomContainer extends Container {
   bumpSong = (id) => {
     const index = this.state.queue.findIndex(song => song.id === id)
     const queue = this.state.queue 
+    const jsonMap = sessionStorage.getItem('alreadyBumped') || "{}"
+    const alreadyBumped = JSON.parse(jsonMap)
+    
     queue[index] = {
       ...queue[index], 
       bumps: queue[index].bumps + 1,
-      alreadyBumped: true
+      alreadyBumped: alreadyBumped[id] || false
     }
 
     if(index !== 0)
