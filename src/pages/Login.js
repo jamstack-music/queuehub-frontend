@@ -18,10 +18,11 @@ const authenticate = async () => {
 }
 
 const Login = () => {
-  const { access_token } = retrieveHash()
+  const { access_token, expires_in } = retrieveHash()
 
   if(access_token) {
     setToken(access_token)
+    localStorage.setItem('expiration_time', (Date.now()/1000) + 3600)
     return <Redirect to='/' />
   }
   
