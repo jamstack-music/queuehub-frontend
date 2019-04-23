@@ -46,6 +46,18 @@ const StoreMiddleWare = (props) => {
 
     initStore(props.room, props.roomID)
     return function unMount() {
+      eventSource.removeEventListener('song', function() {
+        console.debug('song event listener removed')
+      })
+      
+      eventSource.removeEventListener('next', function() {
+        console.debug('next event listener removed')
+      })
+
+      eventSource.removeEventListener('bump', function() {
+        console.debug('next event listener removed')
+      })
+
       window.removeEventListener('focus', function() {
         console.debug('window listener removed')
       })
