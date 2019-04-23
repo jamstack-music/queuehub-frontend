@@ -42,7 +42,7 @@ export class RoomContainer extends Container {
     if(this.state.queue.length > 0) {
       const jsonMap = sessionStorage.getItem('alreadyBumped') || "{}"
       const alreadyBumped = JSON.parse(jsonMap)
-      alreadyBumped.delete(this.state.queue[0].id)
+      delete alreadyBumped[this.state.queue[0].id]
       sessionStorage.setItem('alreadyBumped', JSON.stringify(alreadyBumped))
 
       this.setState(prevState => ({
