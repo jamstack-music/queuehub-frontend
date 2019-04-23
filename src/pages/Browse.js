@@ -11,7 +11,6 @@ const Browse = (props) => {
     match
   } = props
 
-  console.log(match)
   return (
     <div style={{ paddingTop: '50px' }}>
       <BrowseNav>
