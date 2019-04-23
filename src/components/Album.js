@@ -12,7 +12,7 @@ const Album = (props) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0.5em'}}>
       <img src={thumbnail} alt={thumbnail} style={{ width: dim, height: dim }} /> 
-      <div style={{ marginTop: '0.5em', fontWeight: 'bold', textAlign: 'center' }}>{name}</div>
+      <div style={{ margin: '0.5em', fontWeight: 'bold', textAlign: 'center' }}>{name}</div>
       <div>{artist}</div>
     </div>
   )

@@ -5,16 +5,18 @@ const CurrentSong = (props) => {
     title,
     artist,
     images,
+    addedBy,
   } = props
   
 
   const album = images[0].url
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <img src={album} alt={album} style={{ width: 200, height: 200 }}/>  
-      <h2>{title}</h2>
-      <h3>{artist}</h3>
+      <div style={{ fontSize: '1.2em', fontWeight: 'bold', margin: '0.5em' }}>{title}</div>
+      <div style={{ fontSize: '1.2em', margin: '0.3em' }}>{artist}</div>
+      <div>Added by: {addedBy}</div>
     </div>
   )
 }
@@ -22,7 +24,8 @@ const CurrentSong = (props) => {
 CurrentSong.defaultProps = {
   title: '---',
   artist: '---',
-  images: [{url: 'https://via.placeholder.com/200'}]
+  images: [{url: 'https://via.placeholder.com/200'}],
+  addedBy: '---'
 }
 
 export default CurrentSong

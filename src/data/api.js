@@ -22,6 +22,7 @@ export const bumpSong = async(room, user, song) => {
 }
 
 export const addSong = async (room, song) => {
-  const res = await axios.post(`${BASE}/add/${room}`, {...song, bumps: 0}) 
+  let addedBy = sessionStorage.getItem('name')
+  const res = await axios.post(`${BASE}/add/${room}`, {...song, addedBy, bumps: 0}) 
   return res
 }

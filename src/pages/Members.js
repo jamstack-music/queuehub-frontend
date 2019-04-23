@@ -1,15 +1,21 @@
 import React from 'react'
-import { Subscribe } from 'unstated'
+import MemberList from '../components/MemberList'
 import { RoomContainer } from '../store/room'
+import { Subscribe } from 'unstated'
 
-const Members = () => (
-  <Subscribe to={[RoomContainer]}>
-    {room => (
-      <ul>
-        { room.state.members.map(member => <li>{member}</li>) }     
-      </ul>
-    )}
-  </Subscribe>
-)
+const Members = (props) => {
+  return (
+    <Subscribe to={[RoomContainer]}>
+      {
+        room => (
+          <div>
+            <h1>Members</h1>
+            <MemberList members={room.state.members} />  
+          </div>
+        )
+      }
+    </Subscribe>
+  )
+}
 
 export default Members
