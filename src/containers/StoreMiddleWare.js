@@ -22,26 +22,33 @@ const StoreMiddleWare = (props) => {
     }
 
     window.addEventListener('focus', function() { 
+      console.debug('store-reloaded')
       initStore(props.room, props.roomID)
     }, false)
     
     const eventSource = new EventSource(`http://54.191.51.110:5000/stream?channel=${props.roomID}`)
     
     eventSource.addEventListener('song', function({data}) {
+      console.debug('song added')
       const { song } = JSON.parse(data)
       props.room.addToQueue(song)
     }, false)
 
     eventSource.addEventListener('bump', function({data}) {
+      console.debug('Bump song')
       props.room.bumpSong(data)
     })
 
     eventSource.addEventListener('next', function() {
+      console.debug('Next song')
       props.room.nextSong()
     }, false)
 
     initStore(props.room, props.roomID)
     return function unMount() {
+      window.removeEventListener('focus', function() {
+        console.debug('window listener removed')
+      })
       eventSource.close()
     }
   }, [])
