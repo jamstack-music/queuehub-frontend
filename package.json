@@ -13,6 +13,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-transition-group": "^4.0.0",
+    "serve": "^11.0.0",
     "spotify-web-api-js": "^1.2.0",
     "styled-components": "^4.2.0",
     "unstated": "^2.1.1",
@@ -32,5 +33,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {}
 }
