@@ -23,7 +23,7 @@ const Search = () => {
     }
   }
   useEffect(function search() {
-    spotify.searchTracks(query).then(results => {
+    spotify.searchTracks(query, { market: 'US' }).then(results => {
       const { tracks: { items } } = results
 
       const searchResults = items.map(song => extractSong(song))
