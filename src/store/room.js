@@ -15,7 +15,7 @@ export class RoomContainer extends Container {
 		currentSong: {},
 		queue: [],
 		members: [],
-    name: 'fun-room'
+    name: ''
   }
 
   initRoom = store => {

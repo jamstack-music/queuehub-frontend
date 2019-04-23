@@ -15,7 +15,7 @@ const StoreMiddleWare = (props) => {
         const { data, status } = await joinRoom(id, name) 
         if (status === 400)
           setError(true)
-        room.initRoom(data)
+        room.initRoom({...data, name: id})
         setLoading(false)
       }
     }
