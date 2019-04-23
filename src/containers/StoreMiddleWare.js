@@ -6,6 +6,7 @@ const StoreMiddleWare = (props) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   
+  
   useEffect(function init() {
     async function initStore(room, id) {
       let name = sessionStorage.getItem('name')
@@ -20,6 +21,10 @@ const StoreMiddleWare = (props) => {
       }
     }
 
+    window.addEventListener('focus', function() { 
+      initStore(props.room, props.roomID)
+    }, false)
+    
     const eventSource = new EventSource(`http://54.191.51.110:5000/stream?channel=${props.roomID}`)
     
     eventSource.addEventListener('song', function({data}) {
