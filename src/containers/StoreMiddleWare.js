@@ -28,7 +28,7 @@ const StoreMiddleWare = (props) => {
       initStore(props.room, props.roomID)
     }, false)
     
-    const eventSource = new EventSource(`http://35.160.63.214:5000/stream?channel=${props.roomID}`)
+    const eventSource = new EventSource(`http://52.42.15.3:5000/stream?channel=${props.roomID}`)
     
     eventSource.addEventListener('song', function({data}) {
       console.debug('song added')

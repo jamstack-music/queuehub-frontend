@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE = 'http://35.160.63.214:5000'
+const BASE = 'http://52.42.15.3:5000'
 
 export const joinRoom = async (room, name) => {
   const res = await axios.get(`${BASE}/join/${room}/${name}`, {

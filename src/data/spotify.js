@@ -13,7 +13,7 @@ const credentials = {
   redirectURI: 'http://queuehub.club/login',
   state:  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
   showDialog: true,
-  scopes: ['streaming', 'user-library-read']
+  scopes: ['streaming', 'user-library-read', 'playlist-read-private']
   
 }
 
