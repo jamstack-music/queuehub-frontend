@@ -13,7 +13,9 @@ const StoreMiddleWare = (props) => {
       if(!name) {
         setError(true)
       } else {
+        console.log(id)
         const { data, status } = await joinRoom(id, name) 
+        console.log(data)
         if (status === 400)
           setError(true)
         room.initRoom({...data, name: id})
@@ -26,7 +28,7 @@ const StoreMiddleWare = (props) => {
       initStore(props.room, props.roomID)
     }, false)
     
-    const eventSource = new EventSource(`http://54.191.51.110:5000/stream?channel=${props.roomID}`)
+    const eventSource = new EventSource(`http://35.160.63.214:5000/stream?channel=${props.roomID}`)
     
     eventSource.addEventListener('song', function({data}) {
       console.debug('song added')
