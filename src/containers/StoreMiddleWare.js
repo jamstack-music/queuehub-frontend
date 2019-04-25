@@ -6,7 +6,6 @@ const StoreMiddleWare = (props) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   
-  
   useEffect(function init() {
     async function initStore(room, id) {
       let name = sessionStorage.getItem('name')
@@ -14,10 +13,12 @@ const StoreMiddleWare = (props) => {
         setError(true)
       } else {
         const { data, status } = await joinRoom(id, name) 
-        if (status === 400)
+        if (status === 400) {
           setError(true)
-        room.initRoom({...data, name: id})
-        setLoading(false)
+        } else {
+          room.initRoom({...data, name: id})
+          setLoading(false)
+        }
       }
     }
 
@@ -34,6 +35,12 @@ const StoreMiddleWare = (props) => {
       props.room.addToQueue(song)
     }, false)
 
+    
+    eventSource.addEventListener('join', function({data}) {
+      console.debug('Member joined')
+      console.log(data)
+    })
+     
     eventSource.addEventListener('bump', function({data}) {
       console.debug('Bump song')
       props.room.bumpSong(data)
@@ -54,8 +61,12 @@ const StoreMiddleWare = (props) => {
         console.debug('next event listener removed')
       })
 
+      eventSource.removeEventListener('join', function() {
+        console.debug('join event listener removed')
+      })
+
       eventSource.removeEventListener('bump', function() {
-        console.debug('next event listener removed')
+        console.debug('bump event listener removed')
       })
 
       window.removeEventListener('focus', function() {
@@ -65,7 +76,10 @@ const StoreMiddleWare = (props) => {
     }
   }, [])
 
-  if(error) return <Redirect to='/' />
+  if(error) return <Redirect to={{ 
+    pathname: '/',
+    state: { message: 'Room does not exist' }
+  }}/>
     
   return (
     <>

@@ -3,12 +3,16 @@ import axios from 'axios'
 const BASE = 'http://52.42.15.3:5000'
 
 export const joinRoom = async (room, name) => {
-  const res = await axios.get(`${BASE}/join/${room}/${name}`, {
-    headers: {
-      'Access-Control-Allow-Origin': BASE,
-    },
-  })
-  return res
+  try {
+    const res = await axios.get(`${BASE}/join/${room}/${name}`, {
+      headers: {
+        'Access-Control-Allow-Origin': BASE,
+      },
+    })
+    return res
+  } catch (err) {
+    return { status: 400, data: 'Not a valid room' }
+  }
 }
 
 export const bumpSong = async(room, user, song) => {

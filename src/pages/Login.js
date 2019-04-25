@@ -3,8 +3,35 @@ import { setToken, authURL } from '../data/spotify'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
-const SpotifyButton = styled.button`
+const View = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+`
 
+const Header = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 40vh;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: rgb(36,79,236);
+  background: linear-gradient(27deg, rgba(36,79,236,1) 0%, rgba(0,212,255,1) 100%); 
+`
+
+const SpotifyButton = styled.button`
+  font-weight: bold;
+  margin-top: 3em;
+  padding: 1em 2em;
+  font-size: 1em;
+  border-radius: 25px;
+  color: white;
+  background-color: #1DB954;
+  border: none;
 `
 const retrieveHash = () => window.location.hash
 .substring(1)
@@ -31,10 +58,12 @@ const Login = () => {
   }
   
   return (
-    <>
-      <h1>Welcome to Queuehub</h1>
-      <button onClick={authenticate}>Login with Spotify</button>
-    </>
+    <View>
+      <Header>
+        <h1>Welcome to Queuehub</h1>
+      </Header>
+      <SpotifyButton onClick={authenticate}>Login with Spotify</SpotifyButton>
+    </View>
   )
 }
 

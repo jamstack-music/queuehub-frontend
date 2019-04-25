@@ -8,7 +8,7 @@ const Song = (props) => {
     children,
   } = props
   
-  const thumbnail = images[images.length - 1].url
+  const thumbnail = images && images.length !== 0 ? images[images.length - 1].url : 'http://placeholder.com/200'
   
   return (
     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10}}>
