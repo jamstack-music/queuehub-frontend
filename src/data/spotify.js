@@ -10,7 +10,7 @@ if(cookie) _spotify.setAccessToken(cookie)
 const credentials = {
   clientID: '0a31a2abfc5945bb9e3b3507e6f8361c',
   responseType: 'token',
-  redirectURI: 'http://queuehub.club/login',
+  redirectURI: 'http://localhost:3000/login',
   state:  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
   showDialog: true,
   scopes: ['streaming', 'user-library-read', 'playlist-read-private']

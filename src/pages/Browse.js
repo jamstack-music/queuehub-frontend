@@ -5,6 +5,7 @@ import Playlist from './Playlists/Playlist'
 import Playlists from './Playlists/Playlists'
 import Album from './Albums/Album'
 import Albums from './Albums/Albums'
+import NotFound from './NotFound'
 
 const Browse = (props) => {
   const {
@@ -23,6 +24,7 @@ const Browse = (props) => {
         <Route path={`${match.url}/playlists/:id`} component={Playlist} />
         <Route exact path={`${match.url}/albums`} component={Albums} />
         <Route path={`${match.url}/albums/:id`} component={Album} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   )

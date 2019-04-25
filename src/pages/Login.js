@@ -1,7 +1,11 @@
 import React from 'react'
-import { spotify, setToken, authURL } from '../data/spotify'
+import { setToken, authURL } from '../data/spotify'
 import { Redirect } from 'react-router-dom'
+import styled from 'styled-components'
 
+const SpotifyButton = styled.button`
+
+`
 const retrieveHash = () => window.location.hash
 .substring(1)
 .split('&')
@@ -28,8 +32,8 @@ const Login = () => {
   
   return (
     <>
-      <div>Testing</div>
-      <button onClick={authenticate}>HEll0</button>
+      <h1>Welcome to Queuehub</h1>
+      <button onClick={authenticate}>Login with Spotify</button>
     </>
   )
 }
