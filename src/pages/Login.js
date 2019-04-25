@@ -1,7 +1,7 @@
-import React from 'react'
-import { setToken, authURL } from '../data/spotify'
-import { Redirect } from 'react-router-dom'
-import styled from 'styled-components'
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import styled from 'styled-components';
+import { setToken, authURL } from '../data/spotify';
 
 const View = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const View = styled.div`
   color: white;
   height: 100vh;
   width: 100vw;
-`
+`;
 
 const Header = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const Header = styled.div`
   align-items: center;
   background: rgb(36,79,236);
   background: linear-gradient(27deg, rgba(36,79,236,1) 0%, rgba(0,212,255,1) 100%); 
-`
+`;
 
 const SpotifyButton = styled.button`
   font-weight: bold;
@@ -32,31 +32,31 @@ const SpotifyButton = styled.button`
   color: white;
   background-color: #1DB954;
   border: none;
-`
+`;
 const retrieveHash = () => window.location.hash
-.substring(1)
-.split('&')
-.reduce(function (initial, item) {
-  if (item) {
-    var parts = item.split('=');
-    initial[parts[0]] = decodeURIComponent(parts[1]);
-  }
-  return initial;
-}, {});
+  .substring(1)
+  .split('&')
+  .reduce((initial, item) => {
+    if (item) {
+      const parts = item.split('=');
+      initial[parts[0]] = decodeURIComponent(parts[1]);
+    }
+    return initial;
+  }, {});
 
 const authenticate = async () => {
-  window.location.href = authURL
-}
+  window.location.href = authURL;
+};
 
 const Login = () => {
-  const { access_token, expires_in } = retrieveHash()
+  const { access_token, expires_in } = retrieveHash();
 
-  if(access_token) {
-    setToken(access_token)
-    localStorage.setItem('expiration_time', (Date.now()/1000) + 3600)
-    return <Redirect to='/' />
+  if (access_token) {
+    setToken(access_token);
+    localStorage.setItem('expiration_time', (Date.now() / 1000) + 3600);
+    return <Redirect to="/" />;
   }
-  
+
   return (
     <View>
       <Header>
@@ -64,7 +64,7 @@ const Login = () => {
       </Header>
       <SpotifyButton onClick={authenticate}>Login with Spotify</SpotifyButton>
     </View>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

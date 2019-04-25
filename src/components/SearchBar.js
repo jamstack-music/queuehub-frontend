@@ -1,8 +1,8 @@
-import React from 'react'
-import { IoIosSearch as SearchIcon } from 'react-icons/io'
-import styled from 'styled-components'
+import React from 'react';
+import { IoIosSearch as SearchIcon } from 'react-icons/io';
+import styled from 'styled-components';
 
-import Input from './Input'
+import Input from './Input';
 
 const Bar = styled.div`
   width: 100%;
@@ -14,19 +14,19 @@ const Bar = styled.div`
   justify-content: center;
   background-color: #E6E6E6;
   border-bottom: 1px solid #D6D6D6;
-`
+`;
 
 const SearchBar = (props) => {
   const {
     onChange,
-  } = props
-  
+  } = props;
+
   return (
     <Bar>
-      <SearchIcon style={{ margin: '0 0 0 0.5em', flex: 1 }}/>
-      <Input type='text' placeholder='Search...' onChange={onChange} />
-    </Bar>    
-  )
-}
+      <SearchIcon style={{ margin: '0 0 0 0.5em', flex: 1 }} />
+      <Input type="text" placeholder="Search..." onChange={onChange} />
+    </Bar>
+  );
+};
 
-export default SearchBar
+export default SearchBar;
