@@ -1,13 +1,5 @@
 import React from 'react'
-import { NavLink, Route, Switch } from 'react-router-dom'
-import { 
-  IoIosSearch as SearchIcon,
-  IoIosMusicalNotes as CurrentPlayingIcon,
-  IoMdPeople as MembersIcon
-  
-} from 'react-icons/io'
-
-import { MdCollectionsBookmark as BookMarkIcon } from 'react-icons/md'
+import { Route, Switch } from 'react-router-dom'
 
 import styled from 'styled-components'
 import { RoomContainer } from '../store/room'
@@ -32,12 +24,7 @@ const Room = ({ match }) => {
         room => (
           <StoreMiddleWare room={room} roomID={match.params.id}>
             <View>
-              <Nav>
-                <NavLink exact to={`${match.url}`}><CurrentPlayingIcon size='1.5em'/></NavLink>
-                <NavLink to={`${match.url}/browse`}><BookMarkIcon size='1.5em'/></NavLink>
-                <NavLink to={`${match.url}/members`}><MembersIcon size='1.5em'/></NavLink>
-                <NavLink to={`${match.url}/search`}><SearchIcon size='1.5em'/></NavLink>
-              </Nav>
+              <Nav match={match.url} />
               <Switch>
                 <Route exact path={`${match.url}`} component={CurrentPlaying} />
                 <Route path={`${match.url}/members`} component={Members} />
