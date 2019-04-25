@@ -76,9 +76,10 @@ export class RoomContainer extends Container {
   }
 
   addMember = member => {
-    this.setState(prevState => ({
-      members: [...prevState.members, member]
-    }))
+    if(!this.state.members.find(el => el === member))
+      this.setState(prevState => ({
+        members: [...prevState.members, member]
+      }))
   }
 }
 
