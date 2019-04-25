@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const BumpButton = styled.button`
   color: grey;
@@ -18,6 +18,6 @@ const BumpButton = styled.button`
   :active {
     transform: scale(0.85);
   }
-`
+`;
 
-export default BumpButton
+export default BumpButton;

@@ -1,16 +1,18 @@
-import React from 'react'
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom'
-import BrowseNav from '../components/BrowseNav'
-import Playlist from './Playlists/Playlist'
-import Playlists from './Playlists/Playlists'
-import Album from './Albums/Album'
-import Albums from './Albums/Albums'
-import NotFound from './NotFound'
+import React from 'react';
+import {
+  Switch, Route, NavLink, Redirect,
+} from 'react-router-dom';
+import BrowseNav from '../components/BrowseNav';
+import Playlist from './Playlists/Playlist';
+import Playlists from './Playlists/Playlists';
+import Album from './Albums/Album';
+import Albums from './Albums/Albums';
+import NotFound from './NotFound';
 
 const Browse = (props) => {
   const {
-    match
-  } = props
+    match,
+  } = props;
 
   return (
     <div style={{ paddingTop: '50px' }}>
@@ -27,7 +29,7 @@ const Browse = (props) => {
         <Route component={NotFound} />
       </Switch>
     </div>
-  )
-}
+  );
+};
 
-export default Browse
+export default Browse;
