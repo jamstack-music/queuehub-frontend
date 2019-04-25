@@ -38,7 +38,8 @@ const StoreMiddleWare = (props) => {
     
     eventSource.addEventListener('join', function({data}) {
       console.debug('Member joined')
-      console.log(data)
+      const { user } = JSON.parse(data)
+      props.room.addMember(user)
     })
      
     eventSource.addEventListener('bump', function({data}) {
