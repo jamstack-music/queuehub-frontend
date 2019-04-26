@@ -58,7 +58,8 @@ const Login = () => {
 
   if (accessToken) {
     setToken(accessToken);
-    localStorage.setItem('expiration_time', (Date.now() / 1000) + expiresIn);
+    localStorage.setItem('expiration_time', (Date.now() / 1000) + parseInt(expiresIn, 10));
+
     return <Redirect to="/" />;
   }
 
