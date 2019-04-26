@@ -1,7 +1,7 @@
 /* global sessionStorage */
 import axios from 'axios';
 
-const BASE = 'http://52.42.15.3:5000';
+const BASE = process.env.REACT_APP_BACKEND_URL;
 
 export const joinRoom = async (room, name) => {
   try {
