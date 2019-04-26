@@ -1,3 +1,4 @@
+/* global sessionStorage */
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -36,6 +37,7 @@ const Button = styled.button`
     background-color: rgba(36,79,236,.70);
   }
 `;
+
 const Home = (props) => {
   const {
     location,

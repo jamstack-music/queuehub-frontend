@@ -1,8 +1,9 @@
-import React from 'react'
-import SongList from './SongList'
-import Song from './Song'
-import uuidv4 from 'uuid/v4'
-import BumpButton from '../BumpButton'
+import React from 'react';
+import uuidv4 from 'uuid/v4';
+
+import BumpButton from '../BumpButton';
+import Song from './Song';
+import SongList from './SongList';
 
 const BumpList = (props) => {
   const {
@@ -21,12 +22,12 @@ const BumpList = (props) => {
               onClick={() => onBump(song)}
             >
               {song.bumps || 0}
-            </BumpButton> 
+            </BumpButton>
           </Song>
         ))
       }
     </SongList>
-  )
-}
+  );
+};
 
-export default BumpList
+export default BumpList;

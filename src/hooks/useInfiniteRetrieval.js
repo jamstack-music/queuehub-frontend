@@ -1,3 +1,4 @@
+/* global window document */
 import { useState, useEffect } from 'react';
 import { getNext } from '../data/spotify';
 import extractAlbum from '../data/extractors/album';
@@ -26,7 +27,7 @@ export default function useInfiniteRetrieval(initial) {
   useEffect(() => {
     if (loading) {
       getNext(next).then((res) => {
-        const { items, next } = res;
+        const { items, next: nextLink } = res;
         const newList = items.map((item) => {
           if (item.album) return extractAlbum(item.album);
           return item;
@@ -34,7 +35,7 @@ export default function useInfiniteRetrieval(initial) {
 
         setList([...list, ...newList]);
         setLoading(false);
-        setNext(next);
+        setNext(nextLink);
       });
     }
   }, [loading]);

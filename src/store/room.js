@@ -34,7 +34,6 @@ export class RoomContainer extends Container {
 
   addToQueue = song => {
     if(this.state.queue.length === 0 && !this.state.currentSong.hasOwnProperty('uri')) { 
-      this.setState({ currentSong: song })
     } else {
       this.setState(prevState => ({
         queue: [...prevState.queue, song]

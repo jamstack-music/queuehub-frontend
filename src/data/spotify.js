@@ -2,10 +2,10 @@ import * as Spotify from 'spotify-web-api-js';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const _spotify = new Spotify();
+const spotifyGlob = new Spotify();
 
 const cookie = Cookies.get('token');
-if (cookie) _spotify.setAccessToken(cookie);
+if (cookie) spotifyGlob.setAccessToken(cookie);
 
 const credentials = {
   clientID: '0a31a2abfc5945bb9e3b3507e6f8361c',
@@ -17,21 +17,22 @@ const credentials = {
 
 };
 
+export const spotify = spotifyGlob;
+
 export const getNext = next => axios.get(next, {
   headers: {
-    Authorization: `Bearer ${_spotify.getAccessToken()}`,
+    Authorization: `Bearer ${spotifyGlob.getAccessToken()}`,
   },
 }).then(res => Promise.resolve(res.data)).catch(err => Promise.reject(err));
 
-export const spotify = _spotify;
 export const setToken = (token) => {
   Cookies.set('token', token);
-  _spotify.setAccessToken(token);
+  spotifyGlob.setAccessToken(token);
 };
 
 export const removeToken = () => {
   Cookies.clearAll();
-  _spotify.removeAccessToken();
+  spotifyGlob.removeAccessToken();
 };
 
 export const authURL = 'https://accounts.spotify.com/authorize'

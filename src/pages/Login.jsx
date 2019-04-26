@@ -1,3 +1,4 @@
+/* global window localStorage */
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -33,6 +34,7 @@ const SpotifyButton = styled.button`
   background-color: #1DB954;
   border: none;
 `;
+
 const retrieveHash = () => window.location.hash
   .substring(1)
   .split('&')
@@ -49,11 +51,14 @@ const authenticate = async () => {
 };
 
 const Login = () => {
-  const { access_token, expires_in } = retrieveHash();
+  const {
+    access_token: accessToken,
+    expires_in: expiresIn,
+  } = retrieveHash();
 
-  if (access_token) {
-    setToken(access_token);
-    localStorage.setItem('expiration_time', (Date.now() / 1000) + 3600);
+  if (accessToken) {
+    setToken(accessToken);
+    localStorage.setItem('expiration_time', (Date.now() / 1000) + expiresIn);
     return <Redirect to="/" />;
   }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import uuidv4 from 'uuid/v4';
 import { Link } from 'react-router-dom';
 
 const withLinks = Component => (
