@@ -1,3 +1,4 @@
+/* global sessionStorage */
 import axios from 'axios';
 
 const BASE = 'http://52.42.15.3:5000';

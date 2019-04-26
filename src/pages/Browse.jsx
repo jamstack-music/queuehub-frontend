@@ -2,12 +2,13 @@ import React from 'react';
 import {
   Switch, Route, NavLink, Redirect,
 } from 'react-router-dom';
-import BrowseNav from '../components/BrowseNav';
-import Playlist from './Playlists/Playlist';
-import Playlists from './Playlists/Playlists';
+
 import Album from './Albums/Album';
 import Albums from './Albums/Albums';
+import BrowseNav from '../components/BrowseNav';
 import NotFound from './NotFound';
+import Playlist from './Playlists/Playlist';
+import Playlists from './Playlists/Playlists';
 
 const Browse = (props) => {
   const {

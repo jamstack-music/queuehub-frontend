@@ -32,8 +32,8 @@ const BrowseNav = (props) => {
   return (
     <BrowseNavbar>
       {
-        children.map(({ props }) => (
-          <NavLink key={uuidv4()} activeClassName="selected" className="link" {...props} />
+        children.map(({ childProps = props }) => (
+          <NavLink key={uuidv4()} activeClassName="selected" className="link" {...childProps} />
         ))
       }
     </BrowseNavbar>

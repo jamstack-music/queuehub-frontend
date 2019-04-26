@@ -3,7 +3,7 @@ import { Subscribe } from 'unstated';
 import MemberList from '../components/MemberList';
 import { RoomContainer } from '../store/room';
 
-const Members = props => (
+const Members = () => (
   <Subscribe to={[RoomContainer]}>
     {
         room => (
