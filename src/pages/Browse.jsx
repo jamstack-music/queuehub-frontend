@@ -10,6 +10,17 @@ import NotFound from './NotFound';
 import Playlist from './Playlists/Playlist';
 import Playlists from './Playlists/Playlists';
 
+const BrowseLink = (props) => {
+  const {
+    children,
+    ...rest
+  } = props
+
+  return (
+    <NavLink activeClassName="selected" className="link" {...rest}>{children}</NavLink>
+  )
+};
+
 const Browse = (props) => {
   const {
     match,
@@ -18,8 +29,8 @@ const Browse = (props) => {
   return (
     <div style={{ paddingTop: '50px' }}>
       <BrowseNav>
-        <NavLink to={`${match.url}/playlists`}>Playlists</NavLink>
-        <NavLink to={`${match.url}/albums`}>Albums</NavLink>
+        <BrowseLink to={`${match.url}/playlists`}>Playlists</BrowseLink>
+        <BrowseLink to={`${match.url}/albums`}>Albums</BrowseLink>
       </BrowseNav>
       <Switch>
         <Redirect exact from={`${match.url}`} to={`${match.url}/playlists`} />
