@@ -29,11 +29,11 @@ const FormInput = (props) => {
     value,
   } = props;
 
-  const handleInput = e => onChange(e.targetValue)
+  const handleInput = e => onChange(e.target.value);
   return (
     <Form>
       <Label htmlFor={id}>{label}</Label>
-      <Input type="text" id={id} onChange={handleInput} />
+      <Input type="text" id={id} value={value} onChange={handleInput} />
     </Form>
   );
 };
