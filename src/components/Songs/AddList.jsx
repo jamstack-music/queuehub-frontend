@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { memo } from 'react';
 import uuidv4 from 'uuid/v4';
-import { FiPlus } from 'react-icons/fi';
-import styled from 'styled-components';
+
+import withAdd from '../../hocs/withAdd';
 
 import Song from './Song';
 import SongList from './SongList';
 
-const AddBtn = styled.button`
-  border: none;
-  color: #3963FB;
-  
-  :active {
-    color: ##3958D6;
-    transform: scale(0.95);
-  }
-`;
+const SongAdd = withAdd(Song);
+
+const createSongs = (songs, handleAdd) => songs.map(song => (
+  <SongAdd
+    key={uuidv4()}
+    onAdd={handleAdd}
+    data={song}
+  />
+));
 
 const AddList = (props) => {
   const {
@@ -23,17 +23,17 @@ const AddList = (props) => {
     onAdd,
   } = props
 
+  const handleAdd = song => onAdd(song);
+
+  const songlist = createSongs(songs, handleAdd);
+
   return (
     <SongList style={style}>
-      {
-        songs.map(song => (
-          <Song key={uuidv4()} {...song}>
-            <AddBtn onClick={() => onAdd(song)}><FiPlus size="2em" /></AddBtn>
-          </Song>
-        ))
-      }
+      { songlist }
     </SongList>
   );
 };
 
-export default AddList;
+const shouldUpdate = (prev, next) => prev.songs === next.songs;
+
+export default memo(AddList, shouldUpdate);
