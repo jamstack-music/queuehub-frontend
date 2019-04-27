@@ -5,7 +5,7 @@ import { Subscribe } from 'unstated';
 import { addSong as addSongRemote } from '../../data/api';
 import extractAlbum from '../../data/extractors/album';
 import { spotify } from '../../data/spotify';
-import { RoomContainer } from '../../store/room';
+import RoomContainer from '../../store/room';
 
 import AddList from '../../components/Songs/AddList';
 import AlbumCover from '../../components/Album';
