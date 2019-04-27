@@ -1,19 +1,17 @@
 import React from 'react';
-import { Subscribe } from 'unstated';
 import MemberList from '../components/MemberList';
-import { RoomContainer } from '../store/room';
 
-const Members = () => (
-  <Subscribe to={[RoomContainer]}>
-    {
-        room => (
-          <div>
-            <h1>Members</h1>
-            <MemberList members={room.state.members} />
-          </div>
-        )
-      }
-  </Subscribe>
-);
+const Members = (props) => {
+  const {
+    room,
+  } = props;
+
+  return (
+    <div>
+      <h1>Members</h1>
+      <MemberList members={room.state.members} />
+    </div>
+  );
+};
 
 export default Members;
