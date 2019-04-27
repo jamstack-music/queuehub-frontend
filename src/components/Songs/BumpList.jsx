@@ -1,31 +1,34 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 
-import BumpButton from '../BumpButton';
+import withBump from '../../hocs/withBump';
+
 import Song from './Song';
 import SongList from './SongList';
+
+const SongBump = withBump(Song);
+const createSongs = (songs, handleBump) => songs.map(song => (
+  <SongBump
+    key={uuidv4()}
+    data={song}
+    onBump={handleBump}
+  />
+));
 
 const BumpList = (props) => {
   const {
     songs,
     style,
     onBump,
-  } = props
+  } = props;
+
+  const handleBump = song => onBump(song);
+
+  const songlist = createSongs(songs, handleBump);
 
   return (
     <SongList style={style}>
-      {
-        songs.map(song => (
-          <Song key={uuidv4()} {...song}>
-            <BumpButton
-              disabled={song.alreadyBumped}
-              onClick={() => onBump(song)}
-            >
-              {song.bumps || 0}
-            </BumpButton>
-          </Song>
-        ))
-      }
+      { songlist }
     </SongList>
   );
 };
