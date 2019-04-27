@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const CurrentSong = (props) => {
   const {
@@ -16,10 +16,7 @@ const CurrentSong = (props) => {
       <img src={album} alt={album} style={{ width: 200, height: 200 }} />
       <div style={{ fontSize: '1.2em', fontWeight: 'bold', margin: '0.5em' }}>{title}</div>
       <div style={{ fontSize: '1.2em', margin: '0.3em' }}>{artist}</div>
-      <div>
-        Added by:
-        {addedBy}
-      </div>
+      <div>{`Added by: ${addedBy}`}</div>
     </div>
   );
 };
@@ -31,4 +28,4 @@ CurrentSong.defaultProps = {
   addedBy: '---',
 };
 
-export default CurrentSong;
+export default memo(CurrentSong);
