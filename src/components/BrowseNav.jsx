@@ -1,10 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
-import uuidv4 from 'uuid/v4';
-import { NavLink } from 'react-router-dom';
 import Navbar from './Navbar';
 
-const BrowseNavbar = styled(Navbar)`
+const BrowseNav = styled(Navbar)`
   top: 0;
   background-color: #EDF0F5;
   border-bottom: 1px solid grey;
@@ -23,21 +20,5 @@ const BrowseNavbar = styled(Navbar)`
     color: #365DFF;
   }
 `;
-
-const BrowseNav = (props) => {
-  const {
-    children,
-  } = props;
-
-  return (
-    <BrowseNavbar>
-      {
-        children.map(({ childProps = props }) => (
-          <NavLink key={uuidv4()} activeClassName="selected" className="link" {...childProps} />
-        ))
-      }
-    </BrowseNavbar>
-  );
-};
 
 export default BrowseNav;
