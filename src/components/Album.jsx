@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const Album = (props) => {
   const {
@@ -27,4 +27,4 @@ Album.defaultProps = {
   images: [{ url: 'https//placeholder.com/200' }],
 };
 
-export default Album;
+export default memo(Album);
