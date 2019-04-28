@@ -16,17 +16,17 @@ const Albums = (props) => {
 
   const [list] = useInfiniteRetrieval('https://api.spotify.com/v1/me/albums');
 
+  const albums = list.map(album => (
+    <AlbumLink
+      key={uuidv4()}
+      baseUrl={match.url}
+      {...album}
+    />
+  ));
+
   return (
     <Grid>
-      {
-        list.map(album => (
-          <AlbumLink
-            baseUrl={match.url}
-            key={uuidv4()}
-            {...album}
-          />
-        ))
-      }
+      { albums }
     </Grid>
   );
 };
