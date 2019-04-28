@@ -67,7 +67,7 @@ const Room = (props) => {
       initStore(room, roomID, setError);
     }, false);
 
-    initStore(props.room, props.roomID);
+    initStore(props.room, props.roomID, setError);
     return function unMount() {
       eventSource.removeEventListener('song', () => {});
       eventSource.removeEventListener('join', () => {});
