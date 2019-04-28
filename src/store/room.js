@@ -1,5 +1,4 @@
-import React from 'react'
-import { Container, Provider } from 'unstated'
+import { Container } from 'unstated'
 
 const superBump = (queue) => {
   queue.sort((a, b) => b.bumps - a.bumps) 
@@ -10,7 +9,7 @@ const regularBump = (queue, index) => {
     [queue[index], queue[index - 1]] = [queue[index - 1], queue[index]]
 }
 
-export class RoomContainer extends Container {
+export default class RoomContainer extends Container {
   state = {
 		currentSong: {},
 		queue: [],
@@ -34,7 +33,6 @@ export class RoomContainer extends Container {
 
   addToQueue = song => {
     if(this.state.queue.length === 0 && !this.state.currentSong.hasOwnProperty('uri')) { 
-      this.setState({ currentSong: song })
     } else {
       this.setState(prevState => ({
         queue: [...prevState.queue, song]
@@ -81,14 +79,4 @@ export class RoomContainer extends Container {
         members: [...prevState.members, member]
       }))
   }
-}
-
-export const RoomProvider = ({children}) => {
-  const room = new RoomContainer()
- 
-  return (
-    <Provider inject={[room]}>
-      {children}
-    </Provider>
-  )
 }

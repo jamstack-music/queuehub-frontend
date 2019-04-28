@@ -1,25 +1,25 @@
-import extractSong from './song'
+import extractSong from './song';
 
 const extractAlbum = (playlist) => {
   const {
     id,
     artists: [{
-      name: artist
+      name: artist,
     }],
     images,
     name,
     tracks: {
-      items
+      items,
     },
-  } = playlist
+  } = playlist;
 
   const songs = items.map(track => extractSong({
     ...track,
     album: {
       images,
-      name
-    }
-  }))
+      name,
+    },
+  }));
 
   return {
     id,
@@ -27,7 +27,7 @@ const extractAlbum = (playlist) => {
     images,
     name,
     songs,
-  }
-}
+  };
+};
 
-export default extractAlbum
+export default extractAlbum;
