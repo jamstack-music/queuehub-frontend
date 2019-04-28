@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Navbar = styled.nav`
   width: 100%;
@@ -23,6 +23,6 @@ const Navbar = styled.nav`
   & .selected {
     color: white;
   }
-`
+`;
 
-export default Navbar
+export default Navbar;
