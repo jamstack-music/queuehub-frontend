@@ -17,17 +17,17 @@ const Playlists = (props) => {
 
   const [list] = useInfiniteRetrieval('https://api.spotify.com/v1/me/playlists');
 
+  const playlists = list.map(playlist => (
+    <PlaylistLink
+      key={uuidv4()}
+      baseUrl={match.url}
+      {...playlist}
+    />
+  ));
+
   return (
     <Grid>
-      {
-        list.map(playlist => (
-          <PlaylistLink
-            key={uuidv4()}
-            baseUrl={match.url}
-            {...playlist}
-          />
-        ))
-      }
+      { playlists }
     </Grid>
   );
 };
