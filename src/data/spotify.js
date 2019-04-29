@@ -1,4 +1,5 @@
 import * as Spotify from 'spotify-web-api-js';
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -13,8 +14,7 @@ const credentials = {
   redirectURI: `${process.env.REACT_APP_DOMAIN}/login`,
   state: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
   showDialog: true,
-  scopes: ['streaming', 'user-library-read', 'playlist-read-private'],
-
+  scopes: ['streaming', 'user-read-birthdate', 'user-read-private', 'user-read-email', 'user-library-read'],
 };
 
 export const spotify = spotifyGlob;
@@ -34,6 +34,8 @@ export const removeToken = () => {
   Cookies.clearAll();
   spotifyGlob.removeAccessToken();
 };
+
+export const token = spotifyGlob.getAccessToken();
 
 export const authURL = 'https://accounts.spotify.com/authorize'
   + `?response_type=${credentials.responseType}`
