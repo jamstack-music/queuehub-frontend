@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
+import useSpotifyPlayer from '../hooks/useSpotifyPlayer';
+
 import { joinRoom } from '../data/api';
 import Nav from '../components/Nav';
 
@@ -40,7 +42,9 @@ const Room = (props) => {
     match,
   } = props;
 
-  const [error, setError] = useState(false);
+const [error, setError] = useState(false);
+
+  useSpotifyPlayer(room.state.currentSong.uri);
 
   useEffect(() => {
     const eventSource = new EventSource(`http://52.42.15.3:5000/stream?channel=${props.roomID}`);
