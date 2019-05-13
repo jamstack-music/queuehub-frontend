@@ -1,6 +1,13 @@
-/* global EventSource localStorage */
+/* global EventSource localStorage window */
 import { useEffect, useRef, useReducer } from 'react';
 import { createContainer } from 'unstated-next';
+
+const removeAllListeners = (eventSource) => {
+  eventSource.current.removeEventListener('song', () => null);
+  eventSource.current.removeEventListener('join', () => null);
+  eventSource.current.removeEventListener('bump', () => null);
+  eventSource.current.removeEventListener('next', () => null);
+};
 
 const superBump = (queue) => {
   queue.sort((a, b) => b.bumps - a.bumps);
@@ -145,7 +152,8 @@ function useRoomContainer() {
       );
 
       return function unMount() {
-        eventSource.current.removeAllListeners();
+        removeAllListeners(eventSource);
+        window.removeEventListener('focus', () => {});
         eventSource.current.close();
       };
     }
