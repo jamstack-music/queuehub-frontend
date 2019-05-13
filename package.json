@@ -16,7 +16,7 @@
     "serve": "^11.0.0",
     "spotify-web-api-js": "^1.2.0",
     "styled-components": "^4.2.0",
-    "unstated": "^2.1.1",
+    "unstated-next": "^1.0.1",
     "uuid": "^3.3.2"
   },
   "scripts": {
@@ -25,7 +25,7 @@
     "serve": "serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint --ext .js --ext .jsx src"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +40,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.6.0"
   }
 }
