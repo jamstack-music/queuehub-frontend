@@ -1,6 +1,13 @@
-/* global EventSource localStorage window */
+/* global EventSource localStorage */
 import { useEffect, useRef, useReducer } from 'react';
 import { createContainer } from 'unstated-next';
+
+import useMembers from './members';
+import useSongs from './songs';
+
+const initialState = {
+  name: '',
+};
 
 const removeAllListeners = (eventSource) => {
   eventSource.current.removeEventListener('song', () => null);
@@ -9,90 +16,12 @@ const removeAllListeners = (eventSource) => {
   eventSource.current.removeEventListener('next', () => null);
 };
 
-const superBump = (queue) => {
-  queue.sort((a, b) => b.bumps - a.bumps);
-};
-
-const initialState = {
-  queue: [],
-  currentSong: {},
-  members: [],
-};
-
-function init(state, store, alreadyBumped) {
-  const { current_song: currentSong, ...rest } = store;
-  const queue = rest.queue.map(song => ({
-    ...song,
-    alreadyBumped: alreadyBumped[song.id] || false,
-  }));
-
-  const song = typeof currentSong === 'string' ? {} : currentSong;
-  return {
-    ...state, ...rest, queue, currentSong: song,
-  };
-}
-
 function setName(state, name) {
   return { ...state, name };
 }
 
-function addSong(state, song) {
-  if (state.queue.length === 0 && !state.currentSong.uri) {
-    return { ...state, currentSong: song };
-  }
-  return { ...state, queue: [...state.queue, song] };
-}
-
-function addMember(state, member) {
-  if (!state.members.find(el => el === member)) {
-    return { ...state, members: [...state.members, member] };
-  }
-  return state;
-}
-
-function bumpSong(state, id) {
-  const { queue } = state;
-  const newQueue = queue.map((song) => {
-    if (song.id !== id) return song;
-
-    return {
-      ...song,
-      bumps: song.bumps + 1,
-      alreadyBumped: true,
-    };
-  });
-
-  superBump(newQueue);
-
-  return { ...state, queue: newQueue };
-}
-
-function nextSong(state, alreadyBumped) {
-  if (state.queue.length === 0) return state;
-
-  const { id } = state.queue[0];
-  const { [id]: omit, ...rest } = alreadyBumped;
-  localStorage.setItem('alreadyBumped', JSON.stringify(rest));
-
-  return {
-    ...state,
-    currentSong: state.queue[0],
-    queue: state.queue.slice(1, state.queue.length),
-  };
-}
-
 function reducer(state, action) {
   switch (action.type) {
-    case 'init':
-      return init(state, action.payload, action.alreadyBumped);
-    case 'bump':
-      return bumpSong(state, action.payload);
-    case 'add':
-      return addSong(state, action.payload);
-    case 'join':
-      return addMember(state, action.payload);
-    case 'next':
-      return nextSong(state, action.alreadyBumped);
     case 'name':
       return setName(state, action.payload);
     case 'reset':
@@ -104,7 +33,9 @@ function reducer(state, action) {
 }
 
 function useRoomContainer() {
-  const [room, dispatch] = useReducer(reducer, initialState);
+  const [songs, songsDispatch] = useSongs();
+  const [members, membersDispatch] = useMembers();
+  const [room, roomDispatch] = useReducer(reducer, initialState);
   const eventSource = useRef(null);
 
   useEffect(() => {
@@ -120,7 +51,7 @@ function useRoomContainer() {
         'song',
         ({ data }) => {
           const { song } = JSON.parse(data);
-          dispatch({ type: 'add', payload: song });
+          songsDispatch({ type: 'add', payload: song });
         },
         false,
       );
@@ -129,7 +60,7 @@ function useRoomContainer() {
         'join',
         ({ data }) => {
           const { user } = JSON.parse(data);
-          dispatch({ type: 'join', payload: user });
+          membersDispatch({ type: 'join', payload: user });
         },
         false,
       );
@@ -137,7 +68,7 @@ function useRoomContainer() {
       eventSource.current.addEventListener(
         'bump',
         ({ data }) => {
-          dispatch({ type: 'bump', payload: data });
+          songsDispatch({ type: 'bump', payload: data });
         },
         false,
       );
@@ -146,7 +77,7 @@ function useRoomContainer() {
         'next',
         () => {
           const alreadyBumped = getAlreadyBumped();
-          dispatch({ type: 'next', alreadyBumped });
+          songsDispatch({ type: 'next', alreadyBumped });
         },
         false,
       );
@@ -156,9 +87,16 @@ function useRoomContainer() {
         eventSource.current.close();
       };
     }
-  }, [room.name, dispatch]);
+  }, [room.name, songsDispatch, membersDispatch]);
 
-  return { room, dispatch };
+  return {
+    room,
+    members,
+    songs,
+    roomDispatch,
+    membersDispatch,
+    songsDispatch,
+  };
 }
 
 export default createContainer(useRoomContainer);
