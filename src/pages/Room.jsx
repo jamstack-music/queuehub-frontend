@@ -28,27 +28,23 @@ const Room = (props) => {
 
   useEffect(() => {
     function initStore(id) {
-      const name = sessionStorage.getItem('name');
-      if (!name) {
-        setError(true);
-      } else {
-        joinRoom(id, name)
-          .then(({ status, data }) => {
-            if (status === 400) {
-              setError(true);
-            } else {
-              const alreadyBumped = sessionStorage.getItem('alreadyBumped') || {};
-
-              roomDispatch({ type: 'name', payload: id });
-              membersDispatch({ type: 'init', payload: data });
-              songsDispatch({ type: 'init', payload: data, alreadyBumped });
-            }
-          })
-          .catch((err) => {
+      const current = JSON.parse(localStorage.getItem('current'));
+      joinRoom(id, current)
+        .then(({ status, data }) => {
+          if (status === 400) {
             setError(true);
-          })
-          .finally(() => setLoading(false));
-      }
+          } else {
+            const alreadyBumped = sessionStorage.getItem('alreadyBumped') || {};
+
+            roomDispatch({ type: 'name', payload: id });
+            membersDispatch({ type: 'init', payload: data });
+            songsDispatch({ type: 'init', payload: data, alreadyBumped });
+          }
+        })
+        .catch((err) => {
+          setError(true);
+        })
+        .finally(() => setLoading(false));
     }
 
     initStore(match.params.id);
