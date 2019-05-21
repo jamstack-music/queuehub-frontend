@@ -1,5 +1,5 @@
 /* global sessionStorage */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAlert } from 'react-alert';
@@ -20,6 +20,11 @@ const Button = styled.button`
   }
 `;
 
+const createHandler = (event, setter) => {
+  event.preventDefault();
+  setter(event.target.value);
+};
+
 const Home = (props) => {
   const {
     location,
@@ -28,16 +33,26 @@ const Home = (props) => {
   const [room, setRoom] = useState('');
   const [name, setName] = useState('');
   const [submit, setSubmit] = useState(false);
-  const alert = useAlert();
+  const alert = useRef(useAlert());
 
   useEffect(() => {
-    if (location.state && location.state.hasOwnProperty('message')) { alert.error(location.state.message); }
-  }, []);
+    if (location.state && location.state.hasOwnProperty('message')) {
+      alert.current.error(location.state.message);
+    }
+  }, [location.state]);
 
   if (submit) {
     sessionStorage.setItem('name', name);
     return <Redirect push to={`/${room}`} />;
   }
+
+  const handleRoom = event => createHandler(event, setRoom);
+  const handleName = event => createHandler(event, setName);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmit(true);
+  };
 
   return (
     <div style={{
@@ -45,17 +60,17 @@ const Home = (props) => {
     }}
     >
       <h1>Queuehub</h1>
-      <form onSubmit={() => setSubmit(true)} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <FormInput
           label="Enter a room name"
           id="room-name"
-          onChange={setRoom}
+          onChange={handleRoom}
           value={room}
         />
         <FormInput
           label="Enter your name"
           id="name"
-          onChange={setName}
+          onChange={handleName}
           value={name}
         />
         <Button disabled={!room || !name} type="submit">Let's go!</Button>
