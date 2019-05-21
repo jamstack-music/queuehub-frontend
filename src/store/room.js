@@ -40,8 +40,7 @@ function useRoomContainer() {
 
   useEffect(() => {
     async function getAlreadyBumped() {
-      const alreadyBumped = localStorage.getItem('alreadyBumped') || {};
-      return JSON.parse(alreadyBumped);
+      return JSON.parse(localStorage.getItem('alreadyBumped') || "{}");
     }
 
     if (room.name) {
