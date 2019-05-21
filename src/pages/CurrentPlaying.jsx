@@ -7,7 +7,7 @@ import BumpList from '../components/Songs/BumpList';
 import CurrentSong from '../components/Songs/CurrentSong';
 
 const CurrentPlaying = () => {
-  const { room } = RoomContainer.useContainer();
+  const { songs, room } = RoomContainer.useContainer();
   const handleBump = song => bumpSong(room.name, 'Jim', song.id);
 
   return (
@@ -17,15 +17,15 @@ const CurrentPlaying = () => {
     >
       <h2>Current Song</h2>
       {
-        Object.keys(room.currentSong).length !== 0 ? (
-          <CurrentSong {...room.currentSong} />
+        Object.keys(songs.current).length !== 0 ? (
+          <CurrentSong {...songs.current} />
         ) : (
           <h3>No Song</h3>
         )
       }
       <h3>Current Queue</h3>
       <BumpList
-        songs={room.queue}
+        songs={songs.queue}
         onBump={handleBump}
       />
     </div>

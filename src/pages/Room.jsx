@@ -17,7 +17,6 @@ const View = styled.div`
   padding-bottom: 40px;
 `;
 
-
 const Room = (props) => {
   const {
     match,
@@ -25,7 +24,7 @@ const Room = (props) => {
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { dispatch } = RoomContainer.useContainer();
+  const { roomDispatch, membersDispatch, songsDispatch } = RoomContainer.useContainer();
 
   useEffect(() => {
     function initStore(id) {
@@ -39,19 +38,21 @@ const Room = (props) => {
               setError(true);
             } else {
               const alreadyBumped = sessionStorage.getItem('alreadyBumped') || {};
-              dispatch({ type: 'init', payload: { ...data, name: id }, alreadyBumped });
+
+              roomDispatch({ type: 'name', payload: id });
+              membersDispatch({ type: 'init', payload: data });
+              songsDispatch({ type: 'init', payload: data, alreadyBumped });
             }
           })
-          .catch(err => {
-            console.log(err)
-            setError(true)
+          .catch((err) => {
+            setError(true);
           })
           .finally(() => setLoading(false));
       }
     }
 
     initStore(match.params.id);
-  }, [dispatch, match.params.id]);
+  }, [match.params.id, membersDispatch, songsDispatch, roomDispatch]);
 
   if (error) {
     return (

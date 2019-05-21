@@ -36,7 +36,7 @@ const Home = (props) => {
   const alert = useRef(useAlert());
 
   useEffect(() => {
-    if (location.state && location.state.hasOwnProperty('message')) {
+    if (location.state && location.state.message) {
       alert.current.error(location.state.message);
     }
   }, [location.state]);
