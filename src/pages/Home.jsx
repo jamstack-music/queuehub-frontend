@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAlert } from 'react-alert';
 
+import Member from '../components/Member';
+import RoomContainer from '../store/room';
 import FormInput from '../components/FormInput';
 
 const Button = styled.button`
@@ -31,9 +33,10 @@ const Home = (props) => {
   } = props;
 
   const [room, setRoom] = useState('');
-  const [name, setName] = useState('');
   const [submit, setSubmit] = useState(false);
   const alert = useRef(useAlert());
+
+  const current = JSON.parse(localStorage.getItem('current'));
 
   useEffect(() => {
     if (location.state && location.state.message) {
@@ -42,12 +45,10 @@ const Home = (props) => {
   }, [location.state]);
 
   if (submit) {
-    sessionStorage.setItem('name', name);
     return <Redirect push to={`/${room}`} />;
   }
 
   const handleRoom = event => createHandler(event, setRoom);
-  const handleName = event => createHandler(event, setName);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,6 +61,7 @@ const Home = (props) => {
     }}
     >
       <h1>Queuehub</h1>
+      <Member {...current}/>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <FormInput
           label="Enter a room name"
@@ -67,13 +69,7 @@ const Home = (props) => {
           onChange={handleRoom}
           value={room}
         />
-        <FormInput
-          label="Enter your name"
-          id="name"
-          onChange={handleName}
-          value={name}
-        />
-        <Button disabled={!room || !name} type="submit">Let's go!</Button>
+        <Button disabled={!room} type="submit">Let's go!</Button>
       </form>
     </div>
   );
