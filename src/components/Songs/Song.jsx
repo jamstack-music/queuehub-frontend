@@ -1,4 +1,6 @@
 import React, { memo } from 'react';
+import albumImg from '../../assets/Music Note (Large).png';
+import Image from '../Image';
 
 const Song = (props) => {
   const {
@@ -8,7 +10,7 @@ const Song = (props) => {
     children,
   } = props;
 
-  const thumbnail = images && images.length !== 0 ? images[images.length - 1].url : 'http://placeholder.com/200';
+  const thumbnail = images && images.length !== 0 ? images[images.length - 1].url : albumImg;
 
   return (
     <div
@@ -20,7 +22,7 @@ const Song = (props) => {
         padding: 10,
       }}
     >
-      <img alt={thumbnail} src={thumbnail} style={{ width: 40, height: 40 }} />
+      <Image alt={thumbnail} fallback={albumImg} src={thumbnail} style={{ width: 40, height: 40 }} />
       <div
         style={{
           flex: 2,
