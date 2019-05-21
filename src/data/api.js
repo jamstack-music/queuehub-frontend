@@ -3,9 +3,10 @@ import axios from 'axios';
 
 const BASE = process.env.REACT_APP_BACKEND_URL;
 
-export const joinRoom = async (room, name) => {
+// TODO: Make into post request with all user info
+export const joinRoom = async (room, user) => {
   try {
-    const res = await axios.get(`${BASE}/join/${room}/${name}`, {
+    const res = await axios.get(`${BASE}/join/${room}/${user.id}`, {
       headers: {
         'Access-Control-Allow-Origin': BASE,
       },
