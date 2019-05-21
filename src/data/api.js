@@ -20,7 +20,7 @@ export const joinRoom = async (room, user) => {
 export const bumpSong = async (room, user, song) => {
   const jsonMap = sessionStorage.getItem('alreadyBumped') || '{}';
   const map = JSON.parse(jsonMap);
-  sessionStorage.setItem('alreadyBumped', JSON.stringify({ ...map, [song]: true }));
+  localStorage.setItem('alreadyBumped', JSON.stringify({ ...map, [song]: true }));
 
   const res = await axios.get(`${BASE}/${room}/${user}/bump/${song}`);
   return res;

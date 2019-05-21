@@ -34,7 +34,8 @@ const Room = (props) => {
           if (status === 400) {
             setError(true);
           } else {
-            const alreadyBumped = JSON.parse(sessionStorage.getItem('alreadyBumped') || {});
+            const jsonMap = localStorage.getItem('alreadyBumped') || "{}";
+            const alreadyBumped = JSON.parse(jsonMap)
 
             roomDispatch({ type: 'name', payload: id });
             membersDispatch({ type: 'init', payload: data });
