@@ -2,15 +2,11 @@ import { useReducer } from 'react';
 
 const initialState = [];
 
-function init(store) {
-  const { members } = store;
-  return members;
-}
-
 function reducer(state, action) {
   switch (action.type) {
     case 'init':
-      return init(action.payload);
+      const { members } = action.payload
+      return members;
     case 'add':
       return [...state, action.payload];
     default:
