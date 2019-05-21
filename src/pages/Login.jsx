@@ -2,7 +2,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { setToken, authURL } from '../data/spotify';
+
+import extractUser from '../data/extractors/user';
+import { setToken, spotify, authURL } from '../data/spotify';
+import RoomContainer from '../store/room';
 
 const View = styled.div`
   display: flex;
@@ -51,6 +54,8 @@ const authenticate = async () => {
 };
 
 const Login = () => {
+  const { membersDispatch } = RoomContainer.useContainer();
+
   const {
     access_token: accessToken,
     expires_in: expiresIn,
@@ -59,6 +64,15 @@ const Login = () => {
   if (accessToken) {
     setToken(accessToken);
     localStorage.setItem('expiration_time', (Date.now() / 1000) + parseInt(expiresIn, 10));
+
+    spotify.getMe()
+      .then(data => {
+        const user = extractUser(data);
+        localStorage.setItem('current', JSON.stringify(user))
+      })
+      .catch(err => {
+        console.err(err)
+      })
 
     return <Redirect to="/" />;
   }
