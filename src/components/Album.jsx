@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
 const Album = (props) => {
   const {
@@ -21,7 +22,15 @@ const Album = (props) => {
   );
 };
 
+Album.propTypes = {
+  name: PropTypes.string,
+  artist: PropTypes.string,
+  dim: PropTypes.number,
+  images: PropTypes.arrayOf(PropTypes.string),
+};
+
 Album.defaultProps = {
+  dim: 130,
   name: '--',
   artist: '--',
   images: [{ url: 'https//placeholder.com/200' }],

@@ -1,5 +1,6 @@
-import React, { memo } from 'react'
-import styled from 'styled-components'
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const Input = styled.input`
   font-size: 16px;
@@ -29,13 +30,19 @@ const FormInput = (props) => {
     value,
   } = props;
 
-  const handleInput = e => onChange(e.target.value);
   return (
     <Form>
       <Label htmlFor={id}>{label}</Label>
-      <Input type="text" id={id} value={value} onChange={handleInput} />
+      <Input type="text" id={id} value={value} onChange={onChange} />
     </Form>
   );
+};
+
+FormInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default memo(FormInput);

@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
 const Playlist = (props) => {
   const {
@@ -16,6 +17,11 @@ const Playlist = (props) => {
       <div style={{ marginTop: '0.5em' }}>{name}</div>
     </div>
   );
+};
+
+Playlist.propTypes = {
+  name: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.any),
 };
 
 Playlist.defaultProps = {

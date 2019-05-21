@@ -41,7 +41,7 @@ export default function useInfiniteRetrieval(initial) {
         setNext(nextLink);
       }).catch(err => err);
     }
-  }, [loading, next]);
+  }, [list, loading, next]);
 
   return [list, loading];
 }

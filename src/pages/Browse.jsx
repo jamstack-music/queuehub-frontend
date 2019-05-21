@@ -14,11 +14,11 @@ const BrowseLink = (props) => {
   const {
     children,
     ...rest
-  } = props
+  } = props;
 
   return (
     <NavLink activeClassName="selected" className="link" {...rest}>{children}</NavLink>
-  )
+  );
 };
 
 const Browse = (props) => {

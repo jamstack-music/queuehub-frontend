@@ -153,7 +153,6 @@ function useRoomContainer() {
 
       return function unMount() {
         removeAllListeners(eventSource);
-        window.removeEventListener('focus', () => {});
         eventSource.current.close();
       };
     }

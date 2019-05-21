@@ -10,7 +10,7 @@ const SongList = (props) => {
     children,
     songs,
     style,
-  } = props
+  } = props;
 
   const render = children || createSongs(songs);
 
@@ -25,7 +25,6 @@ const shouldUpdate = (prev, next) => {
   if (prev.children) return prev.children === next.children;
 
   return prev.songs === next.songs;
-
 };
 
 export default memo(SongList, shouldUpdate);
