@@ -1,9 +1,9 @@
-/* global window sessionStorage EventSource */
-
+/* global sessionStorage */
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
+import RoomContainer from '../store/room';
 import { joinRoom } from '../data/api';
 import Nav from '../components/Nav';
 
@@ -17,66 +17,41 @@ const View = styled.div`
   padding-bottom: 40px;
 `;
 
-const withRoom = (Component, room, props) => <Component room={room} {...props} />;
-
-const initStore = async (store, id, setError) => {
-  const name = sessionStorage.getItem('name');
-  if (!name) {
-    setError(true);
-  } else {
-    const { data, status } = await joinRoom(id, name);
-    if (status === 400) {
-      setError(true);
-    } else {
-      store.initRoom({ ...data, name: id });
-    }
-  }
-};
 
 const Room = (props) => {
   const {
-    roomID,
-    room,
     match,
   } = props;
 
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { dispatch } = RoomContainer.useContainer();
 
   useEffect(() => {
-    const eventSource = new EventSource(`http://52.42.15.3:5000/stream?channel=${props.roomID}`);
+    function initStore(id) {
+      const name = sessionStorage.getItem('name');
+      if (!name) {
+        setError(true);
+      } else {
+        joinRoom(id, name)
+          .then(({ status, data }) => {
+            if (status === 400) {
+              setError(true);
+            } else {
+              const alreadyBumped = sessionStorage.getItem('alreadyBumped') || {};
+              dispatch({ type: 'init', payload: { ...data, name: id }, alreadyBumped });
+            }
+          })
+          .catch(err => {
+            console.log(err)
+            setError(true)
+          })
+          .finally(() => setLoading(false));
+      }
+    }
 
-    eventSource.addEventListener('song', ({ data }) => {
-      const { song } = JSON.parse(data);
-      room.addToQueue(song);
-    }, false);
-
-    eventSource.addEventListener('join', ({ data }) => {
-      const { user } = JSON.parse(data);
-      room.addMember(user);
-    });
-
-    eventSource.addEventListener('bump', ({ data }) => {
-      room.bumpSong(data);
-    });
-
-    eventSource.addEventListener('next', () => {
-      room.nextSong();
-    }, false);
-
-    window.addEventListener('focus', () => {
-      initStore(room, roomID, setError);
-    }, false);
-
-    initStore(props.room, props.roomID, setError);
-    return function unMount() {
-      eventSource.removeEventListener('song', () => {});
-      eventSource.removeEventListener('join', () => {});
-      eventSource.removeEventListener('bump', () => {});
-      eventSource.removeEventListener('next', () => {});
-      window.removeEventListener('focus', () => {});
-      eventSource.close();
-    };
-  }, []);
+    initStore(match.params.id);
+  }, [dispatch, match.params.id]);
 
   if (error) {
     return (
@@ -89,14 +64,15 @@ const Room = (props) => {
     );
   }
 
+  if (loading) return <div>Loading...</div>;
   return (
     <View>
       <Nav match={match.url} />
       <Switch>
-        <Route exact path={`${match.url}`} render={childProps => withRoom(CurrentPlaying, room, childProps)} />
-        <Route path={`${match.url}/members`} render={childProps => withRoom(Members, room, childProps)} />
-        <Route path={`${match.url}/search`} render={childProps => withRoom(Search, room, childProps)} />
-        <Route path={`${match.url}/browse`} render={childProps => withRoom(Browse, room, childProps)} />
+        <Route exact path={`${match.url}`} component={CurrentPlaying} />
+        <Route path={`${match.url}/members`} component={Members} />
+        <Route path={`${match.url}/search`} component={Search} />
+        <Route path={`${match.url}/browse`} component={Browse} />
         <Route component={NotFound} />
       </Switch>
     </View>
