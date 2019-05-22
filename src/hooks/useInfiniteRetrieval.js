@@ -36,12 +36,12 @@ export default function useInfiniteRetrieval(initial) {
           return item;
         });
 
-        setList([...list, ...newList]);
+        setList(l => l.concat(newList));
         setLoading(false);
         setNext(nextLink);
       }).catch(err => err);
     }
-  }, [list, loading, next]);
+  }, [loading, next]);
 
   return [list, loading];
 }
