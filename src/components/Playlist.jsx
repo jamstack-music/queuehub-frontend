@@ -32,4 +32,8 @@ Playlist.defaultProps = {
   images: [{ url: 'https//placeholder.com/200' }],
 };
 
-export default memo(Playlist);
+function isSame(prev, next) {
+  return prev.key === next.key
+}
+
+export default memo(Playlist, isSame);

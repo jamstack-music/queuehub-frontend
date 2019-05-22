@@ -39,4 +39,8 @@ Album.defaultProps = {
   images: [{ url: albumImg }],
 };
 
-export default memo(Album);
+function isSame(prev, next) {
+  return prev.key === next.key
+}
+
+export default memo(Album, isSame);
