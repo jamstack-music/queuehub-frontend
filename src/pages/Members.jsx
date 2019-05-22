@@ -8,7 +8,7 @@ const Members = () => {
   return (
     <div>
       <h1>Members</h1>
-      <MemberList members={members} />
+      <MemberList members={members.others} />
     </div>
   );
 };

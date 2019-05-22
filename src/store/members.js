@@ -1,12 +1,25 @@
 import { useReducer } from 'react';
 
-const initialState = [];
+const initialState = {
+  current: {},
+  others: [],
+};
+
+function init(store, current) {
+  const { members } = store;
+
+  const others = members.filter(mem => mem.id !== current.id);
+  
+  return {
+    others,
+    current,
+  };
+}
 
 function reducer(state, action) {
   switch (action.type) {
     case 'init':
-      const { members } = action.payload
-      return members;
+      return init(action.payload, action.current)
     case 'add':
       return [...state, action.payload];
     default:

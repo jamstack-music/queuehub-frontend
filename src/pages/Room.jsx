@@ -37,7 +37,7 @@ const Room = (props) => {
             const alreadyBumped = JSON.parse(localStorage.getItem('alreadyBumped') || "{}");
 
             roomDispatch({ type: 'name', payload: id });
-            membersDispatch({ type: 'init', payload: data });
+            membersDispatch({ type: 'init', payload: data, current });
             songsDispatch({ type: 'init', payload: data, alreadyBumped });
           }
         })
