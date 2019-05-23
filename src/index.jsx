@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import AlertTemplate from 'react-alert-template-basic';
 import { BrowserRouter } from 'react-router-dom';
 import { positions, transitions, Provider as AlertProvider } from 'react-alert';
-import { Provider } from 'unstated';
+import RoomContainer from './store/room';
 
 import App from './App';
 
@@ -21,11 +21,11 @@ const alertOptions = {
 
 const AppContainer = () => (
   <AlertProvider template={AlertTemplate} {...alertOptions}>
-    <Provider>
+    <RoomContainer.Provider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    </RoomContainer.Provider>
   </AlertProvider>
 );
 

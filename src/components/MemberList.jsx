@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
 import styled from 'styled-components';
 
@@ -19,9 +20,17 @@ const MemberList = (props) => {
 
   return (
     <List>
-      { members.map((member, i) => <Row final={i === members.length - 1} key={uuidv4()}>{member}</Row>) }
+      {
+        members.map((member, i) => (
+          <Row final={i === members.length - 1} key={uuidv4()}>{member}</Row>
+        ))
+      }
     </List>
   );
+};
+
+MemberList.propTypes = {
+  members: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default MemberList;

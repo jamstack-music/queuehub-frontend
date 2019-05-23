@@ -1,82 +1,101 @@
-import { Container } from 'unstated'
+/* global EventSource localStorage */
+import { useEffect, useRef, useReducer } from 'react';
+import { createContainer } from 'unstated-next';
 
-const superBump = (queue) => {
-  queue.sort((a, b) => b.bumps - a.bumps) 
+import useMembers from './members';
+import useSongs from './songs';
+
+const initialState = {
+  name: '',
+};
+
+const removeAllListeners = (eventSource) => {
+  eventSource.current.removeEventListener('song', () => null);
+  eventSource.current.removeEventListener('join', () => null);
+  eventSource.current.removeEventListener('bump', () => null);
+  eventSource.current.removeEventListener('next', () => null);
+};
+
+function setName(state, name) {
+  return { ...state, name };
 }
 
-const regularBump = (queue, index) => {
-  if(index !== 0)
-    [queue[index], queue[index - 1]] = [queue[index - 1], queue[index]]
-}
-
-export default class RoomContainer extends Container {
-  state = {
-		currentSong: {},
-		queue: [],
-		members: [],
-    name: ''
-  }
-
-  initRoom = store => {
-    const { current_song, ...rest } = store
-    const jsonMap = sessionStorage.getItem('alreadyBumped') || "{}"
-    const alreadyBumped = JSON.parse(jsonMap)
-    const queue = store.queue.map(song => ({
-      ...song, 
-      alreadyBumped: alreadyBumped[song.id] || false
-    }))
-
-    this.setState(prevState => ({...prevState, ...rest, queue, currentSong: current_song}))
-  }
-
-  setName = name => this.setState({name })
-
-  addToQueue = song => {
-    if(this.state.queue.length === 0 && !this.state.currentSong.hasOwnProperty('uri')) { 
-    } else {
-      this.setState(prevState => ({
-        queue: [...prevState.queue, song]
-      }))
-    }
-  }
-
-  nextSong = () => {
-    if(this.state.queue.length > 0) {
-      const jsonMap = sessionStorage.getItem('alreadyBumped') || "{}"
-      const alreadyBumped = JSON.parse(jsonMap)
-      delete alreadyBumped[this.state.queue[0].id]
-      sessionStorage.setItem('alreadyBumped', JSON.stringify(alreadyBumped))
-
-      this.setState(prevState => ({
-        currentSong: prevState.queue[0], 
-        queue: prevState.queue.slice(1, prevState.queue.length)
-      }))
-    }
-  }
-
-  bumpSong = (id) => {
-    const index = this.state.queue.findIndex(song => song.id === id)
-    const queue = this.state.queue 
-    const jsonMap = sessionStorage.getItem('alreadyBumped') || "{}"
-    const alreadyBumped = JSON.parse(jsonMap)
-    
-    queue[index] = {
-      ...queue[index], 
-      bumps: queue[index].bumps + 1,
-      alreadyBumped: alreadyBumped[id] || false
-    }
-
-    superBump(queue)
-
-    this.setState(prevState => ({
-      queue
-    }))
-  }
-
-  addMember = member => {
-    if(!this.state.members.find(el => el === member))
-      this.setState(prevState => ({
-        members: [...prevState.members, member]
-      }))
+function reducer(state, action) {
+  switch (action.type) {
+    case 'name':
+      return setName(state, action.payload);
+    case 'reset':
+      localStorage.clear();
+      return initialState;
+    default:
+      return state;
   }
 }
+
+function useRoomContainer() {
+  const [songs, songsDispatch] = useSongs();
+  const [members, membersDispatch] = useMembers();
+  const [room, roomDispatch] = useReducer(reducer, initialState);
+  const eventSource = useRef(null);
+
+  useEffect(() => {
+    async function getAlreadyBumped() {
+      return JSON.parse(localStorage.getItem('alreadyBumped') || "{}");
+    }
+
+    if (room.name) {
+      eventSource.current = new EventSource(`http://52.42.15.3:5000/stream?channel=${room.name}`);
+
+      eventSource.current.addEventListener(
+        'song',
+        ({ data }) => {
+          const { song } = JSON.parse(data);
+          songsDispatch({ type: 'add', payload: song });
+        },
+        false,
+      );
+
+      eventSource.current.addEventListener(
+        'join',
+        ({ data }) => {
+          const { user } = JSON.parse(data);
+          membersDispatch({ type: 'join', payload: user });
+        },
+        false,
+      );
+
+      eventSource.current.addEventListener(
+        'bump',
+        ({ data }) => {
+          songsDispatch({ type: 'bump', payload: data });
+        },
+        false,
+      );
+
+      eventSource.current.addEventListener(
+        'next',
+        () => {
+          const alreadyBumped = getAlreadyBumped();
+          songsDispatch({ type: 'next', alreadyBumped });
+        },
+        false,
+      );
+
+      return function unMount() {
+        removeAllListeners(eventSource);
+        eventSource.current.close();
+      };
+    }
+  }, [room.name, songsDispatch, membersDispatch]);
+
+  return {
+    room,
+    members,
+    songs,
+    roomDispatch,
+    membersDispatch,
+    songsDispatch,
+  };
+}
+
+export default createContainer(useRoomContainer);

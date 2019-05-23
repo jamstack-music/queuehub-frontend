@@ -1,4 +1,6 @@
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   IoIosSearch as SearchIcon,
   IoIosMusicalNotes as CurrentPlayingIcon,
@@ -49,6 +51,10 @@ const Nav = (props) => {
       </IconLink>
     </Navbar>
   );
+};
+
+Nav.propTypes = {
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default memo(Nav);

@@ -21,7 +21,7 @@ const AddList = (props) => {
     songs,
     style,
     onAdd,
-  } = props
+  } = props;
 
   const handleAdd = song => onAdd(song);
 

@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useAlert } from 'react-alert';
 
-import { addSong as addSongRemote } from '../data/api';
+import useSongAdder from '../hooks/useSongAdder';
 import extractSong from '../data/extractors/song';
 import { spotify } from '../data/spotify';
 
 import AddList from '../components/Songs/AddList';
 import SearchBar from '../components/SearchBar';
-
-const addSong = (alert, room, song) => {
-  if (room.state.queue.find(({ id }) => id === song.id)) {
-    alert.error('This song is already in the queue!');
-  } else {
-    addSongRemote(room.state.name, song).then(() => {
-      alert.success('Song added to queue!');
-    });
-  }
-};
 
 const searchSpotify = (query, setResults) => {
   if (query === '') {
@@ -34,20 +23,16 @@ const searchSpotify = (query, setResults) => {
   });
 };
 
-const Search = (props) => {
-  const {
-    room,
-  } = props;
-
-  const alert = useAlert();
+const Search = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const addSong = useSongAdder();
 
   useEffect(() => {
     searchSpotify(query, setResults);
   }, [query]);
 
-  const handleAdd = song => addSong(alert, room, song);
+  const handleAdd = song => addSong(song);
   return (
     <div>
       <SearchBar onChange={setQuery} />
