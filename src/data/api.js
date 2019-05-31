@@ -1,4 +1,4 @@
-/* global sessionStorage */
+/* global sessionStorage localStorage */
 import axios from 'axios';
 
 const BASE = process.env.REACT_APP_BACKEND_URL;
@@ -30,3 +30,8 @@ export const addSong = async (room, song) => {
   const res = await axios.post(`${BASE}/add/${room}`, { ...song, addedBy, bumps: 0 });
   return res;
 };
+
+export const nextSong = async (room) => {
+  const res  = await axios.get(`${BASE}/next/${room}`)
+  return res;
+}
