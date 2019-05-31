@@ -65,7 +65,7 @@ function reducer(state, action) {
     case 'bump':
       return bump(state, action.payload);
     case 'next':
-      return next(state, action.payload);
+      return next(state, action.alreadyBumped);
     default:
       throw new Error();
   }
