@@ -1,8 +1,23 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import Image from '../components/Image';
+import Image from './Image';
 import albumImg from '../assets/Music Note (Large).png';
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5em;
+`;
+
+const Name = styled.div`
+ margin: 0.5em;
+ font-weight: bold;
+ text-align: center;
+`;
 
 const Album = (props) => {
   const {
@@ -14,14 +29,11 @@ const Album = (props) => {
 
   const thumbnail = images[0].url;
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0.5em',
-    }}
-    >
-      <Image src={thumbnail} alt={albumImg} fallback={albumImg} style={{ width: dim, height: dim }} />
-      <div style={{ margin: '0.5em', fontWeight: 'bold', textAlign: 'center' }}>{name}</div>
+    <Layout>
+      <Image src={thumbnail} alt={albumImg} fallback={albumImg} dim={dim} />
+      <Name>{name}</Name>
       <div>{artist}</div>
-    </div>
+    </Layout>
   );
 };
 
@@ -40,7 +52,7 @@ Album.defaultProps = {
 };
 
 function isSame(prev, next) {
-  return prev.key === next.key
+  return prev.key === next.key;
 }
 
 export default memo(Album, isSame);
