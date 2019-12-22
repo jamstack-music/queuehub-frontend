@@ -18,8 +18,7 @@
     "serve": "^11.0.0",
     "spotify-web-api-js": "^1.2.0",
     "styled-components": "^4.2.0",
-    "unstated-next": "^1.0.1",
-    "uuid": "^3.3.2"
+    "unstated-next": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

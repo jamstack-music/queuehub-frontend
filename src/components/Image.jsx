@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
@@ -43,4 +43,4 @@ const Image = (props) => {
   );
 };
 
-export default memo(Image);
+export default Image;

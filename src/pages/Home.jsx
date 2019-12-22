@@ -61,7 +61,7 @@ const Home = (props) => {
     }}
     >
       <h1>Queuehub</h1>
-      <Member {...current}/>
+      <Member {...current} />
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <FormInput
           label="Enter a room name"

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import albumImg from '../../assets/Music Note (Large).png';
 import Image from '../Image';
 
@@ -39,4 +39,4 @@ const Song = (props) => {
   );
 };
 
-export default memo(Song);
+export default Song;

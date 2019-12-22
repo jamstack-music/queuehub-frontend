@@ -32,6 +32,6 @@ export const addSong = async (room, song) => {
 };
 
 export const nextSong = async (room) => {
-  const res  = await axios.get(`${BASE}/next/${room}`)
+  const res = await axios.get(`${BASE}/next/${room}`);
   return res;
-}
+};

@@ -66,13 +66,13 @@ const Login = () => {
     localStorage.setItem('expiration_time', (Date.now() / 1000) + parseInt(expiresIn, 10));
 
     spotify.getMe()
-      .then(data => {
+      .then((data) => {
         const user = extractUser(data);
-        localStorage.setItem('current', JSON.stringify(user))
+        localStorage.setItem('current', JSON.stringify(user));
       })
-      .catch(err => {
-        console.err(err)
-      })
+      .catch((err) => {
+        console.err(err);
+      });
 
     return <Redirect to="/" />;
   }

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -31,21 +31,23 @@ const Nav = (props) => {
     match,
   } = props;
 
+  const param = useMemo(() => match, [match]);
+
   return (
     <Navbar>
-      <IconLink exact to={`${match}`}>
+      <IconLink exact to={`${param}`}>
         <CurrentPlayingIcon size="1.5em" />
         <Text>Currently Playing</Text>
       </IconLink>
-      <IconLink to={`${match}/browse`}>
+      <IconLink to={`${param}/browse`}>
         <BookMarkIcon size="1.5em" />
         <Text>Browse</Text>
       </IconLink>
-      <IconLink to={`${match}/members`}>
+      <IconLink to={`${param}/members`}>
         <MembersIcon size="1.5em" />
         <Text>Members</Text>
       </IconLink>
-      <IconLink to={`${match}/search`}>
+      <IconLink to={`${param}/search`}>
         <SearchIcon size="1.5em" />
         <Text>Search</Text>
       </IconLink>
@@ -57,4 +59,4 @@ Nav.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default memo(Nav);
+export default Nav;

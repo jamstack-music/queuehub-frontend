@@ -1,9 +1,8 @@
-import React, { memo } from 'react';
-import uuidv4 from 'uuid/v4';
+import React from 'react';
 
 import Song from './Song';
 
-const createSongs = songs => songs.map(song => <Song key={uuidv4()} {...song} />);
+const createSongs = songs => songs.map(song => <Song key={song.id} {...song} />);
 
 const SongList = (props) => {
   const {
@@ -21,10 +20,4 @@ const SongList = (props) => {
   );
 };
 
-const shouldUpdate = (prev, next) => {
-  if (prev.children) return prev.children === next.children;
-
-  return prev.songs === next.songs;
-};
-
-export default memo(SongList, shouldUpdate);
+export default SongList;

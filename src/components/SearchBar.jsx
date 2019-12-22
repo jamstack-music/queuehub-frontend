@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { IoIosSearch as SearchIcon } from 'react-icons/io';
@@ -53,4 +53,4 @@ SearchBar.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default memo(SearchBar);
+export default SearchBar;

@@ -3,11 +3,11 @@ const extractUser = (data) => {
     display_name,
     id,
     images: [{
-      url
+      url,
     }],
   } = data;
 
-  const [first, last] = display_name.split(" ");
+  const [first, last] = display_name.split(' ');
 
   return {
     first,
@@ -15,6 +15,6 @@ const extractUser = (data) => {
     id,
     image: url,
   };
-}
+};
 
 export default extractUser;

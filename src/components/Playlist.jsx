@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -43,8 +43,4 @@ Playlist.defaultProps = {
   images: [{ url: 'https//placeholder.com/200' }],
 };
 
-function isSame(prev, next) {
-  return prev.key === next.key;
-}
-
-export default memo(Playlist, isSame);
+export default Playlist;

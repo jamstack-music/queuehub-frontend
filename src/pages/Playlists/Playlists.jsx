@@ -1,5 +1,4 @@
 import React from 'react';
-import uuidv4 from 'uuid/v4';
 
 import useInfiniteRetrieval from '../../hooks/useInfiniteRetrieval';
 
@@ -19,7 +18,7 @@ const Playlists = (props) => {
 
   const playlists = list.map(playlist => (
     <PlaylistLink
-      key={uuidv4()}
+      key={playlist.id}
       baseUrl={match.url}
       {...playlist}
     />

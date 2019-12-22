@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import uuidv4 from 'uuid/v4';
 
 import withAdd from '../../hocs/withAdd';
 
@@ -10,7 +9,7 @@ const SongAdd = withAdd(Song);
 
 const createSongs = (songs, handleAdd) => songs.map(song => (
   <SongAdd
-    key={uuidv4()}
+    key={song.id}
     onAdd={handleAdd}
     data={song}
   />
@@ -34,6 +33,4 @@ const AddList = (props) => {
   );
 };
 
-const shouldUpdate = (prev, next) => prev.songs === next.songs;
-
-export default memo(AddList, shouldUpdate);
+export default AddList;

@@ -1,5 +1,4 @@
 import React from 'react';
-import uuidv4 from 'uuid/v4';
 
 import withBump from '../../hocs/withBump';
 
@@ -9,7 +8,7 @@ import SongList from './SongList';
 const SongBump = withBump(Song);
 const createSongs = (songs, handleBump) => songs.map(song => (
   <SongBump
-    key={uuidv4()}
+    key={song.id}
     data={song}
     onBump={handleBump}
   />

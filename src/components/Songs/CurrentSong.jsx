@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 const CurrentSong = (props) => {
   const {
@@ -28,4 +28,4 @@ CurrentSong.defaultProps = {
   addedBy: '---',
 };
 
-export default memo(CurrentSong);
+export default CurrentSong;

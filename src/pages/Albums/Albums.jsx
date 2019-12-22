@@ -1,5 +1,4 @@
 import React from 'react';
-import uuidv4 from 'uuid/v4';
 
 import withLinks from '../../hocs/withLinks';
 import useInfiniteRetrieval from '../../hooks/useInfiniteRetrieval';
@@ -18,7 +17,7 @@ const Albums = (props) => {
 
   const albums = list.map(album => (
     <AlbumLink
-      key={uuidv4()}
+      key={album.id}
       baseUrl={match.url}
       {...album}
     />

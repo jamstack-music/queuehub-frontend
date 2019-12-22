@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FiPlus } from 'react-icons/fi';
 
@@ -13,7 +13,7 @@ const AddBtn = styled.button`
 `;
 
 function withAdd(Component) {
-  return memo((props) => {
+  return (props) => {
     const {
       onAdd,
       data,
@@ -26,7 +26,7 @@ function withAdd(Component) {
         <AddBtn onClick={handleClick}><FiPlus size="2em" /></AddBtn>
       </Component>
     );
-  });
+  };
 }
 
 export default withAdd;
