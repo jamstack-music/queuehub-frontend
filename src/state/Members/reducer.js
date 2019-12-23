@@ -5,7 +5,7 @@ import INIT_STATE from './state';
 const membersReducer = {
   addMember: (state, member) => ({
     ...state,
-    members: [...state.members, member],
+    all: [...state.all, member],
   }),
   initMembers: state => state,
 };

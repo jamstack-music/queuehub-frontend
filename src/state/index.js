@@ -1,5 +1,8 @@
 import React, {
-  useState, useContext, useEffect, useMemo,
+  useState,
+  useContext,
+  useEffect,
+  useMemo,
 } from 'react';
 import { combineReducers } from 'redux';
 import MembersReducer from './Members/reducer';
@@ -14,17 +17,6 @@ export const rootReducer = combineReducers({
 
 export const ReduxContainer = React.createContext();
 
-function useStoreState() {
-  const appStore = useContext(ReduxContainer);
-  const [state, setState] = useState(appStore);
-
-  appStore.subscribe(() => {
-    setState(appStore.getState());
-  });
-
-  return state;
-}
-
 export function useDispatch() {
   const appStore = useContext(ReduxContainer);
   const dispatch = useMemo(() => appStore.dispatch, [appStore.dispatch]);
@@ -32,16 +24,22 @@ export function useDispatch() {
   return dispatch;
 }
 
-export function useSelector(selector) {
-  const storeState = useStoreState();
-  const [value, setValue] = useState(selector(storeState));
+const defaultEquality = (a, b) => a === b;
+export function useSelector(selector, equalityFxn = defaultEquality) {
+  const appStore = useContext(ReduxContainer);
+  const value = selector(appStore.getState());
+  const [currentValue, setCurrentValue] = useState(value);
 
   useEffect(() => {
-    const newValue = selector(storeState);
-    if (newValue !== value) {
-      setValue(newValue);
-    }
-  }, [selector, storeState, value]);
+    appStore.subscribe(() => {
+      const nextState = appStore.getState();
+      const nextValue = selector(nextState);
 
-  return value;
+      if (!equalityFxn(currentValue, nextValue)) {
+        setCurrentValue(nextValue);
+      }
+    });
+  }, [appStore, currentValue, equalityFxn, selector]);
+
+  return currentValue;
 }

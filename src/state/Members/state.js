@@ -1,4 +1,4 @@
 export default {
   current: {},
-  others: [],
+  all: [],
 };
