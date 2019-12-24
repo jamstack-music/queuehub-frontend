@@ -1,10 +1,7 @@
-/* global sessionStorage */
-import React, { useState, useEffect } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import RoomContainer from '../store/room';
-import { joinRoom } from '../data/api';
 import Nav from '../components/Nav';
 
 import CurrentPlaying from './CurrentPlaying';
@@ -17,51 +14,9 @@ const View = styled.div`
   padding-bottom: 40px;
 `;
 
-const Room = (props) => {
-  const {
-    match,
-  } = props;
+const Room = () => {
+  const match = useRouteMatch('/room/:id');
 
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const { roomDispatch, membersDispatch, songsDispatch } = RoomContainer.useContainer();
-
-  useEffect(() => {
-    function initStore(id) {
-      const current = JSON.parse(localStorage.getItem('current'));
-      joinRoom(id, current)
-        .then(({ status, data }) => {
-          if (status === 400) {
-            setError(true);
-          } else {
-            const alreadyBumped = JSON.parse(localStorage.getItem('alreadyBumped') || '{}');
-
-            roomDispatch({ type: 'name', payload: id });
-            membersDispatch({ type: 'init', payload: data, current });
-            songsDispatch({ type: 'init', payload: data, alreadyBumped });
-          }
-        })
-        .catch((err) => {
-          setError(true);
-        })
-        .finally(() => setLoading(false));
-    }
-
-    initStore(match.params.id);
-  }, [match.params.id, membersDispatch, songsDispatch, roomDispatch]);
-
-  if (error) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/',
-          state: { message: 'Room does not exist' },
-        }}
-      />
-    );
-  }
-
-  if (loading) return <div>Loading...</div>;
   return (
     <View>
       <Nav match={match.url} />

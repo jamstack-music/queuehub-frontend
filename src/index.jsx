@@ -1,10 +1,12 @@
 /* global document */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+
 import AlertTemplate from 'react-alert-template-basic';
 import { BrowserRouter } from 'react-router-dom';
 import { positions, transitions, Provider as AlertProvider } from 'react-alert';
-import RoomContainer from './store/room';
+import { rootReducer, ReduxContainer } from './state';
 
 import App from './App';
 
@@ -19,14 +21,18 @@ const alertOptions = {
   transition: transitions.FADE,
 };
 
-const AppContainer = () => (
-  <AlertProvider template={AlertTemplate} {...alertOptions}>
-    <RoomContainer.Provider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </RoomContainer.Provider>
-  </AlertProvider>
-);
+const AppContainer = () => {
+  const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+  return (
+    <AlertProvider template={AlertTemplate} {...alertOptions}>
+      <ReduxContainer.Provider value={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ReduxContainer.Provider>
+    </AlertProvider>
+  );
+};
 
 ReactDOM.render(<AppContainer />, document.getElementById('root'));

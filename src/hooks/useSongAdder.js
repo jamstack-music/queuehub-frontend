@@ -1,12 +1,10 @@
 import { useCallback, useRef } from 'react';
 import { useAlert } from 'react-alert';
-import RoomContainer from '../store/room';
+import { useSelector } from '../state';
 import { addSong as addSongRemote } from '../data/api';
 
 export default function useSongAdder() {
-  const {
-    room: { name },
-  } = RoomContainer.useContainer();
+  const name = useSelector(s => s.room.name);
 
   const alert = useRef(useAlert());
   const addSong = useCallback(

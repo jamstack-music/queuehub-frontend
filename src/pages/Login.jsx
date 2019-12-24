@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import extractUser from '../data/extractors/user';
 import { setToken, spotify, authURL } from '../data/spotify';
-import RoomContainer from '../store/room';
 
 const View = styled.div`
   display: flex;
@@ -54,8 +53,6 @@ const authenticate = async () => {
 };
 
 const Login = () => {
-  const { membersDispatch } = RoomContainer.useContainer();
-
   const {
     access_token: accessToken,
     expires_in: expiresIn,

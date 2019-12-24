@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import RoomContainer from '../store/room';
+import { useSelector, useDispatch } from '../state';
 import MemberList from '../components/MemberList';
 
+function Songs() {
+  const songs = useSelector(s => s.songs.queue);
+
+  return (
+    <div>
+Songs here:
+      {songs}
+    </div>
+  );
+}
 const Members = () => {
-  const { members } = RoomContainer.useContainer();
+  const dispatch = useDispatch();
+  const addMember = useCallback(() => dispatch({ type: 'addMember', payload: 'jim' }), [dispatch]);
   return (
     <div>
       <h1>Members</h1>
-      <MemberList members={members.others} />
+      <button onClick={addMember}>Add Jim</button>
+      <Songs />
+      <MemberList />
     </div>
   );
 };

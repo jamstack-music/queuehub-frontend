@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid/v4';
 import styled from 'styled-components';
+import { useSelector } from '../state';
 
 const List = styled.ul`
   padding: 0;
@@ -14,15 +14,13 @@ const Row = styled.li`
 `;
 
 const MemberList = (props) => {
-  const {
-    members,
-  } = props;
+  const members = useSelector(s => s.members.all);
 
   return (
     <List>
       {
         members.map((member, i) => (
-          <Row final={i === members.length - 1} key={uuidv4()}>{member}</Row>
+          <Row final={i === members.length - 1} key={member.id}>{member}</Row>
         ))
       }
     </List>
