@@ -1,7 +1,8 @@
+/* global window */
 import {
-  compose,
-  applyMiddleware,
   combineReducers,
+  applyMiddleware,
+  compose,
   createStore as createReduxStore,
 } from 'redux';
 
@@ -11,19 +12,20 @@ import MembersReducer from './Members/reducer';
 import SongsReducer from './Songs/reducer';
 import RoomReducer from './Room/reducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   members: MembersReducer,
   songs: SongsReducer,
   room: RoomReducer,
 });
 
 export const createStore = () => {
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const composeCreator = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   return createReduxStore(
     rootReducer,
-    composeEnhancers(
+    composeCreator(
       applyMiddleware(thunk),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     ),
   );
 };
