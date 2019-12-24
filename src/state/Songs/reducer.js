@@ -40,7 +40,12 @@ const songsReducer = {
     }
     return { ...state, queue };
   },
-  initSongs: state => state,
+  fetchRoomSuccess: (state, room) => ({
+    ...state,
+    superBumpEnabled: room.superBumpEnabled,
+    queue: room.queue,
+    current: room.currentSong,
+  }),
 };
 
 export default wrapReducer(songsReducer, INIT_STATE);

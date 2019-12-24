@@ -7,7 +7,10 @@ const membersReducer = {
     ...state,
     all: [...state.all, member],
   }),
-  initMembers: state => state,
+  fetchRoomSuccess: (state, room) => ({
+    ...state,
+    all: room.members,
+  }),
 };
 
 export default wrapReducer(membersReducer, INIT_STATE);

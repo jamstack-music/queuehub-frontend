@@ -19,7 +19,21 @@ const roomReducer = {
     ...state,
     isPrivate: false,
   }),
-  initRoom: state => state,
+  fetchRoomLoading: state => ({
+    ...state,
+    loading: true,
+  }),
+  fetchRoomError: (state, error) => ({
+    ...state,
+    error,
+    loading: false,
+  }),
+  fetchRoomSuccess: (state, room) => ({
+    ...state,
+    name: room.name,
+    code: room.code,
+    loading: false,
+  }),
 };
 
 export default wrapReducer(roomReducer, INIT_STATE);
