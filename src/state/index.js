@@ -25,7 +25,6 @@ export const createStore = () => {
     rootReducer,
     composeCreator(
       applyMiddleware(thunk),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     ),
   );
 };

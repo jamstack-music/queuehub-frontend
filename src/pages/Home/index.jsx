@@ -1,12 +1,10 @@
 import React, { useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 
-import { useSelector } from '../../state';
+import { useSelector } from 'AppState/react';
 import './styles.css';
 
-import Member from '../../components/Member';
-
+/*
 const Input = styled.input`
   font-size: 16px;
   border: 1px grey solid;
@@ -32,6 +30,7 @@ const Button = styled.button`
     background-color: rgba(36,79,236,.70);
   }
 `;
+*/
 
 const Home = () => {
   const history = useHistory();
@@ -47,11 +46,10 @@ const Home = () => {
   return (
     <div id="home-container">
       <h1>Queuehub</h1>
-      <Member {...currentUser} />
       <form id="room-form" onSubmit={handleSubmit}>
-        <Label htmlFor="room-name">Enter in the room code</Label>
-        <Input type="text" id="room-name" ref={roomRef} />
-        <Button type="submit">Let's go!</Button>
+        <label htmlFor="room-name">Enter in the room code</label>
+        <input type="text" id="room-name" ref={roomRef} />
+        <button type="submit">Let's go!</button>
       </form>
     </div>
   );
