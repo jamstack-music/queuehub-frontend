@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
+import Nav from '../components/Nav';
+
 import CurrentPlaying from './CurrentPlaying';
 import Members from './Members';
 import Search from './Search';
@@ -12,6 +14,7 @@ const Room = () => {
 
   return (
     <div>
+      <Nav />
       <Switch>
         <Route exact path={`${match.url}`} component={CurrentPlaying} />
         <Route path={`${match.url}/members`} component={Members} />
