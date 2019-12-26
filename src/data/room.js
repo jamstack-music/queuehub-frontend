@@ -4,11 +4,9 @@ const config = {
   crossDomain: true,
 };
 
-export const retrieveRoom = roomId => (dispatch) => {
-  dispatch({ type: 'fetchRoomLoading' });
-
+export const retrieveRoom = roomId => new Promise((resolve, reject) => {
   axios
-    .get(`http://localhost:4000/v1/room/${roomId}`, config)
-    .then(({ data }) => dispatch({ type: 'fetchRoomSuccess', payload: data }))
-    .catch(({ response }) => dispatch({ type: 'fetchRoomError', payload: response.data }));
-};
+    .get(`${process.env.BACKEND_URL}/v1/room/${roomId}`, config)
+    .then(({ data }) => resolve(data))
+    .catch(e => reject(e.response.data));
+});

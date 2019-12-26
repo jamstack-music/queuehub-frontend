@@ -41,10 +41,11 @@ const Home = () => {
     const roomName = roomRef.current.value;
     history.push(`/room/${roomName}`);
   }, [history, roomRef]);
+  const error = useSelector(s => s.room.error);
 
-  const currentUser = useSelector(s => s.members.current);
   return (
     <div id="home-container">
+      { error && <div>{ error }</div> }
       <h1>Queuehub</h1>
       <form id="room-form" onSubmit={handleSubmit}>
         <label htmlFor="room-name">Enter in the room code</label>
