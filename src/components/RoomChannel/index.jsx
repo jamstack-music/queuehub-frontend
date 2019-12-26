@@ -11,9 +11,9 @@ export const RoomChannelProvider = (props) => {
   const channel = useChannel(process.env.BACKEND_SOCKET, `room:${id}`);
 
   useEffect(() => {
-    channel.on('song_bumped', data => dispatch({ type: 'bumpSong', payload: data }));
-    channel.on('song_added', data => dispatch({ type: 'addSong', payload: data }));
-    channel.on('member_added', data => dispatch({ type: 'addMember', payload: data }));
+    channel.on('song_bumped', (data) => dispatch({ type: 'bumpSong', payload: data }));
+    channel.on('song_added', (data) => dispatch({ type: 'addSong', payload: data }));
+    channel.on('member_added', (data) => dispatch({ type: 'addMember', payload: data }));
     channel.on('song_skipped', () => dispatch({ type: 'nextSong' }));
   }, [channel, dispatch]);
 

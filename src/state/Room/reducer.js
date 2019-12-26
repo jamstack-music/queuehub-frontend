@@ -11,11 +11,11 @@ const roomReducer = {
     ...state,
     code,
   }),
-  setRoomAsPrivate: state => ({
+  setRoomAsPrivate: (state) => ({
     ...state,
     isPrivate: true,
   }),
-  setRoomAsPublic: state => ({
+  setRoomAsPublic: (state) => ({
     ...state,
     isPrivate: false,
   }),

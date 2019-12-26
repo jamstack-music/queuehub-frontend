@@ -41,16 +41,18 @@ const Home = () => {
     const roomName = roomRef.current.value;
     history.push(`/room/${roomName}`);
   }, [history, roomRef]);
-  const error = useSelector(s => s.room.error);
+  const error = useSelector((s) => s.room.error);
 
   return (
     <div id="home-container">
       { error && <div>{ error }</div> }
       <h1>Queuehub</h1>
       <form id="room-form" onSubmit={handleSubmit}>
-        <label htmlFor="room-name">Enter in the room code</label>
-        <input type="text" id="room-name" ref={roomRef} />
-        <button type="submit">Let's go!</button>
+        <label htmlFor="room-name">
+          Enter in the room code
+          <input id="room-name" type="text" ref={roomRef} />
+        </label>
+        <button type="submit">Let&apos;s go!</button>
       </form>
     </div>
   );

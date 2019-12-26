@@ -11,7 +11,7 @@ const Nav = () => {
       <NavLink to={`${base}/search`}>Search</NavLink>
       <NavLink to={`${base}/browse`}>Browse</NavLink>
     </div>
-  ), [base])
+  ), [base]);
 
   return menuOptions;
 };
