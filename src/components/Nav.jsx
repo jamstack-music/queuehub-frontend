@@ -6,7 +6,7 @@ const Nav = () => {
 
   const menuOptions = useMemo(() => (
     <div>
-      <NavLink to={`${base}/current-playing`}>Currently Playing</NavLink>
+      <NavLink exact to={`${base}`}>Home</NavLink>
       <NavLink to={`${base}/members`}>Members</NavLink>
       <NavLink to={`${base}/search`}>Search</NavLink>
       <NavLink to={`${base}/browse`}>Browse</NavLink>

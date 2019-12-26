@@ -32,7 +32,7 @@ const Button = styled.button`
 `;
 */
 
-const Home = () => {
+const RoomSelection = () => {
   const history = useHistory();
   const roomRef = useRef(null);
 
@@ -58,4 +58,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default RoomSelection;

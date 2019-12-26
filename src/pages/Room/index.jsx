@@ -9,15 +9,16 @@ import {
 import { useDispatch } from 'AppState/react';
 import { RoomChannelProvider } from 'Components/RoomChannel';
 
-import { retrieveRoom } from '../data/room';
+import { retrieveRoom } from 'API/room';
 
-import Nav from '../components/Nav';
+import Nav from 'Components/Nav';
 
-import CurrentPlaying from './CurrentPlaying';
+import Home from './Home';
 import Members from './Members';
 import Search from './Search';
-import NotFound from './NotFound';
 import Browse from './Browse';
+
+import NotFound from '../NotFound';
 
 const Room = () => {
   const match = useRouteMatch('/room/:id');
@@ -47,7 +48,7 @@ const Room = () => {
       <div>
         <Nav />
         <Switch>
-          <Route exact path={`${match.url}`} component={CurrentPlaying} />
+          <Route exact path={`${match.url}`} component={Home} />
           <Route path={`${match.url}/members`} component={Members} />
           <Route path={`${match.url}/search`} component={Search} />
           <Route path={`${match.url}/browse`} component={Browse} />
