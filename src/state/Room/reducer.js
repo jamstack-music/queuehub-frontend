@@ -19,20 +19,10 @@ const roomReducer = {
     ...state,
     isPrivate: false,
   }),
-  fetchRoomLoading: state => ({
-    ...state,
-    loading: true,
-  }),
-  fetchRoomError: (state, error) => ({
-    ...state,
-    error,
-    loading: false,
-  }),
-  fetchRoomSuccess: (state, room) => ({
+  initRoom: (state, room) => ({
     ...state,
     name: room.name,
     code: room.code,
-    loading: false,
   }),
 };
 

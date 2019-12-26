@@ -7,7 +7,7 @@ const membersReducer = {
     ...state,
     all: [...state.all, member],
   }),
-  fetchRoomSuccess: (state, room) => ({
+  initRoom: (state, room) => ({
     ...state,
     all: room.members,
   }),

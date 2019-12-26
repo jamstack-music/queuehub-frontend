@@ -40,7 +40,7 @@ const songsReducer = {
     }
     return { ...state, queue };
   },
-  fetchRoomSuccess: (state, room) => ({
+  initRoom: (state, room) => ({
     ...state,
     superBumpEnabled: room.superBumpEnabled,
     queue: room.queue,

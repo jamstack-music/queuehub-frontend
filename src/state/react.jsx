@@ -34,7 +34,7 @@ export function useSelector(selector, equalityFxn = defaultEquality) {
   const value = selector(appStore.getState());
   const [currentValue, setCurrentValue] = useState(value);
 
-  useEffect(() => {
+  useEffect(() => (
     appStore.subscribe(() => {
       const nextState = appStore.getState();
       const nextValue = selector(nextState);
@@ -42,8 +42,8 @@ export function useSelector(selector, equalityFxn = defaultEquality) {
       if (!equalityFxn(currentValue, nextValue)) {
         setCurrentValue(nextValue);
       }
-    });
-  }, [appStore, currentValue, equalityFxn, selector]);
+    })
+  ), [appStore, currentValue, equalityFxn, selector]);
 
   return currentValue;
 }
