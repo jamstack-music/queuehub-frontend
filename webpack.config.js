@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const DotenvFlow = require('dotenv-flow-webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -23,12 +24,16 @@ module.exports = {
       AppState: path.resolve(__dirname, './src/state'),
     },
   },
+  devtool: 'eval-source-map',
   plugins: [
+    new DotenvFlow({
+      default_node_env: 'development',
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html",
-    })
+      template: './src/index.html',
+      filename: './index.html',
+    }),
   ],
   devServer: {
     historyApiFallback: true,
