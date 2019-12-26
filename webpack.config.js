@@ -22,6 +22,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css'],
     alias: {
       AppState: path.resolve(__dirname, './src/state'),
+      Components: path.resolve(__dirname, './src/components'),
     },
   },
   devtool: 'eval-source-map',

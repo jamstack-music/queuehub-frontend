@@ -1,7 +1,5 @@
-import { createContext, useMemo, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { Socket } from 'phoenix';
-
-export const ChannelContext = createContext();
 
 function useChannel(socketURL, channelId) {
   const socket = useMemo(() => {

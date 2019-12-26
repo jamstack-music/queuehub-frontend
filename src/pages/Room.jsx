@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch } from 'AppState/react';
+import { RoomChannelProvider } from 'Components/RoomChannel';
 
 import { retrieveRoom } from '../data/room';
-import { RoomChannelProvider } from './useRoomChannel';
 
 import Nav from '../components/Nav';
 
