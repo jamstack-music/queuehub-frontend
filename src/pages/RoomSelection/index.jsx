@@ -1,7 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSelector } from 'AppState/react';
 import './styles.css';
 
 /*
@@ -41,11 +40,9 @@ const RoomSelection = () => {
     const roomName = roomRef.current.value;
     history.push(`/room/${roomName}`);
   }, [history, roomRef]);
-  const error = useSelector((s) => s.room.error);
 
   return (
     <div id="home-container">
-      { error && <div>{ error }</div> }
       <h1>Queuehub</h1>
       <form id="room-form" onSubmit={handleSubmit}>
         <label htmlFor="room-name">
